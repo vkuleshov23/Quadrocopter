@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static java.lang.Math.pow;
@@ -32,8 +33,7 @@ public class BMP180 extends QI2CDevice {
     @Getter
     private double A;
 
-    @SneakyThrows
-    public BMP180(I2CBus bus) {
+    public BMP180(I2CBus bus) throws IOException {
         super(bus, BMP180_ADDRESS);
     }
 
