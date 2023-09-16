@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pi.quadrocopter.model.QI2CDevice;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -24,7 +25,15 @@ public class SensorDataCollector {
     @SneakyThrows
     @Scheduled(cron = "*/5 * * * * *")
     void post() {
-        devices.forEach(QI2CDevice::update);
+        devices.forEach(device -> {
+            try {
+                device.update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
         devices.forEach(System.out::println);
     }
 }

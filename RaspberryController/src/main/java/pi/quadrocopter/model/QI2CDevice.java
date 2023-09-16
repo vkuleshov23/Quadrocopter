@@ -14,8 +14,7 @@ public abstract class QI2CDevice {
         device = bus.getDevice(address);
     }
 
-    abstract public void init() throws IOException, InterruptedException;
+    abstract public void init();
 
-    abstract public void update() throws IOException, InterruptedException;
-
+    abstract public void update();
 }

@@ -40,35 +40,40 @@ public class BMP180 extends QI2CDevice {
     }
 
     @Override
-    @SneakyThrows
-    public void init(){
-        device.read(0xAA, data, 0, 22);
-        AC1 = ByteBuffer.wrap(new byte[]{data[0], data[1]}).getShort();
-        AC2 = ByteBuffer.wrap(new byte[]{data[2], data[3]}).getShort();
-        AC3 = ByteBuffer.wrap(new byte[]{data[4], data[5]}).getShort();
-        AC4 = ByteBuffer.wrap(new byte[]{0, 0, data[6], data[7]}).getInt();
-        AC5 = ByteBuffer.wrap(new byte[]{0, 0, data[8], data[9]}).getInt();
-        AC6 = ByteBuffer.wrap(new byte[]{0, 0, data[10], data[11]}).getInt();
-        VB1 = ByteBuffer.wrap(new byte[]{data[12], data[13]}).getShort();
-        VB2 = ByteBuffer.wrap(new byte[]{data[14], data[15]}).getShort();
-        MB = ByteBuffer.wrap(new byte[]{data[16], data[17]}).getShort();
-        MC = ByteBuffer.wrap(new byte[]{data[18], data[19]}).getShort();
-        MD = ByteBuffer.wrap(new byte[]{data[20], data[21]}).getShort();
-        Thread.sleep(50);
-        this.update();
-        this.startP = this.P;
+    public void init() {
+        try {
+            device.read(0xAA, data, 0, 22);
+            AC1 = ByteBuffer.wrap(new byte[]{data[0], data[1]}).getShort();
+            AC2 = ByteBuffer.wrap(new byte[]{data[2], data[3]}).getShort();
+            AC3 = ByteBuffer.wrap(new byte[]{data[4], data[5]}).getShort();
+            AC4 = ByteBuffer.wrap(new byte[]{0, 0, data[6], data[7]}).getInt();
+            AC5 = ByteBuffer.wrap(new byte[]{0, 0, data[8], data[9]}).getInt();
+            AC6 = ByteBuffer.wrap(new byte[]{0, 0, data[10], data[11]}).getInt();
+            VB1 = ByteBuffer.wrap(new byte[]{data[12], data[13]}).getShort();
+            VB2 = ByteBuffer.wrap(new byte[]{data[14], data[15]}).getShort();
+            MB = ByteBuffer.wrap(new byte[]{data[16], data[17]}).getShort();
+            MC = ByteBuffer.wrap(new byte[]{data[18], data[19]}).getShort();
+            MD = ByteBuffer.wrap(new byte[]{data[20], data[21]}).getShort();
+            Thread.sleep(50);
+            this.update();
+            this.startP = this.P;
+        } catch (IOException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    @SneakyThrows
     public void update() {
-        readTemperature();
-        readPressure();
-        readAltitude();
+        try {
+            readTemperature();
+            readPressure();
+            readAltitude();
+        } catch (IOException | InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    @SneakyThrows
-    private void readTemperature() {
+    private void readTemperature() throws IOException, InterruptedException {
         device.write(BMP180_REG_CONTROL, (byte) BMP180_COMMAND_TEMPERATURE);
         Thread.sleep(5);
         device.read(BMP180_REG_RESULT, data, 0, 2);
@@ -79,8 +84,7 @@ public class BMP180 extends QI2CDevice {
         this.T = ((B5 + 8.0) / 16.0) / 10.0; //Celsius
     }
 
-    @SneakyThrows
-    private void readPressure() {
+    private void readPressure() throws IOException, InterruptedException {
         device.write(BMP180_REG_CONTROL, (byte) (BMP180_COMMAND_PRESSURE + (OVER_SAMPLING_RATE << 6)));
         Thread.sleep((3 * ((long) pow(2, OVER_SAMPLING_RATE))) + 2);
         device.read(BMP180_REG_RESULT, data, 0, 3);
