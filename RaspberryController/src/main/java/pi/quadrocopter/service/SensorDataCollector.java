@@ -25,15 +25,7 @@ public class SensorDataCollector {
     @SneakyThrows
     @Scheduled(cron = "*/5 * * * * *")
     void post() {
-        devices.forEach(device -> {
-            try {
-                device.update();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
     }
 }
