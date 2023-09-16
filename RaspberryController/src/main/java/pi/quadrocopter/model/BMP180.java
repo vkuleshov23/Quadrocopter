@@ -31,7 +31,7 @@ public class BMP180 extends QI2CDevice {
     @Getter
     private double P;
 
-    private double prevP;
+    private double startP;
     @Getter
     private double A;
 
@@ -43,7 +43,6 @@ public class BMP180 extends QI2CDevice {
     @SneakyThrows
     public void init(){
         device.read(0xAA, data, 0, 22);
-
         AC1 = ByteBuffer.wrap(new byte[]{data[0], data[1]}).getShort();
         AC2 = ByteBuffer.wrap(new byte[]{data[2], data[3]}).getShort();
         AC3 = ByteBuffer.wrap(new byte[]{data[4], data[5]}).getShort();
@@ -57,6 +56,7 @@ public class BMP180 extends QI2CDevice {
         MD = ByteBuffer.wrap(new byte[]{data[20], data[21]}).getShort();
         Thread.sleep(50);
         this.update();
+        this.startP = this.P;
     }
 
     @Override
@@ -81,7 +81,6 @@ public class BMP180 extends QI2CDevice {
 
     @SneakyThrows
     private void readPressure() {
-        this.prevP = this.P;
         device.write(BMP180_REG_CONTROL, (byte) (BMP180_COMMAND_PRESSURE + (OVER_SAMPLING_RATE << 6)));
         Thread.sleep((3 * ((long) pow(2, OVER_SAMPLING_RATE))) + 2);
         device.read(BMP180_REG_RESULT, data, 0, 3);
