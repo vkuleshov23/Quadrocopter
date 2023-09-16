@@ -5,7 +5,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TreeAxes {
     public int x;
     public int y;
