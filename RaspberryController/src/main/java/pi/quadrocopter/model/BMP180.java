@@ -81,7 +81,7 @@ public class BMP180 extends QI2CDevice {
         device.write(BMP180_REG_CONTROL, (byte) (BMP180_COMMAND_PRESSURE + (OVER_SAMPLING_RATE << 6)));
         Thread.sleep((3 * ((long) pow(2, OVER_SAMPLING_RATE))) + 2);
         device.read(BMP180_REG_RESULT, data, 0, 3);
-        int p = ByteBuffer.wrap(new byte[]{0, data[0], data[1], data[2]}).getInt();
+        int p = ByteBuffer.wrap(new byte[]{0, data[0], data[1], data[2]}).getInt() >> (8-OVER_SAMPLING_RATE);
         B6 = B5 - 4000;
         X1 = (long) ((VB2 * (B6 * B6 / 4096.0)) / 2048.0);
         X2 = AC2 * B6 / 2048.0;
