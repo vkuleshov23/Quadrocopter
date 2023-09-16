@@ -14,14 +14,17 @@ import java.util.List;
 public class SensorDataCollector {
 
     private final List<QI2CDevice> devices;
-    
-    @Scheduled(cron = "*/2 * * * * *")
+
     @SneakyThrows
+    @PostConstruct
+    void initSensors() {
+        devices.forEach(QI2CDevice::init);
+    }
+
+    @SneakyThrows
+    @Scheduled(cron = "*/5 * * * * *")
     void post() {
-        for(var device : devices) {
-            device.init();
-            device.update();
-            System.out.println(device);
-        }
+        devices.forEach(QI2CDevice::update);
+        devices.forEach(System.out::println);
     }
 }
