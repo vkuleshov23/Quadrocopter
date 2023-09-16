@@ -108,7 +108,7 @@ public class BMP180 extends QI2CDevice {
     }
 
     private void readAltitude() {
-        this.A = 44330 * (1 - pow((this.P / this.prevP), 0.1903));
+        this.A = 44330 * (1 - pow((this.P / this.startP), 0.1903));
     }
 
     @Override
