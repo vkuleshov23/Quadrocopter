@@ -30,6 +30,8 @@ public class BMP180 extends QI2CDevice {
     private double T;
     @Getter
     private double P;
+
+    private double prevP;
     @Getter
     private double A;
 
@@ -54,6 +56,7 @@ public class BMP180 extends QI2CDevice {
         MC = ByteBuffer.wrap(new byte[]{data[18], data[19]}).getShort();
         MD = ByteBuffer.wrap(new byte[]{data[20], data[21]}).getShort();
         Thread.sleep(50);
+        this.update();
     }
 
     @Override
@@ -78,6 +81,7 @@ public class BMP180 extends QI2CDevice {
 
     @SneakyThrows
     private void readPressure() {
+        this.prevP = this.P;
         device.write(BMP180_REG_CONTROL, (byte) (BMP180_COMMAND_PRESSURE + (OVER_SAMPLING_RATE << 6)));
         Thread.sleep((3 * ((long) pow(2, OVER_SAMPLING_RATE))) + 2);
         device.read(BMP180_REG_RESULT, data, 0, 3);
@@ -99,8 +103,13 @@ public class BMP180 extends QI2CDevice {
         this.P = (this.P + (X1 + X2 + 3791) / 16.0) / 100; //hPa
     }
 
-    private void readAltitude() {
+    private void readSeaAltitude() {
+        double seaPressure = 1013.25;
         this.A = 44330 * (1 - pow((this.P / 1013.25), 0.1903));
+    }
+
+    private void readAltitude() {
+        this.A = 44330 * (1 - pow((this.P / this.prevP), 0.1903));
     }
 
     @Override

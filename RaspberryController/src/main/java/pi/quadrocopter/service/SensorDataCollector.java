@@ -2,6 +2,7 @@ package pi.quadrocopter.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pi.quadrocopter.model.QI2CDevice;
 
@@ -14,7 +15,7 @@ public class SensorDataCollector {
 
     private final List<QI2CDevice> devices;
     
-    @PostConstruct
+    @Scheduled(cron = "*/2 * * * * *")
     @SneakyThrows
     void post() {
         for(var device : devices) {
