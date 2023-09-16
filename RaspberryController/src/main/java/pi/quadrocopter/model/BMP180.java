@@ -108,7 +108,7 @@ public class BMP180 extends QI2CDevice {
 
     private void readSeaAltitude() {
         double seaPressure = 1013.25;
-        this.A = 44330 * (1 - pow((this.P / 1013.25), 0.1903));
+        this.A = 44330 * (1 - pow((this.P / seaPressure), 0.1903));
     }
 
     private void readAltitude() {

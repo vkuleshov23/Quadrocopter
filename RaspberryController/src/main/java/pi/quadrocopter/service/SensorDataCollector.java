@@ -24,7 +24,7 @@ public class SensorDataCollector {
 
     @SneakyThrows
     @Scheduled(cron = "*/5 * * * * *")
-    void post() {
+    void collect() {
         devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
     }
