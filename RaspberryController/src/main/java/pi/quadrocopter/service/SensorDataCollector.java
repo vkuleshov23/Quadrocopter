@@ -18,6 +18,7 @@ public class SensorDataCollector {
     @SneakyThrows
     void post() {
         for(var device : devices) {
+            device.init();
             device.update();
             System.out.println(device);
         }
