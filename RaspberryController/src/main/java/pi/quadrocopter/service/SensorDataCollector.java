@@ -39,8 +39,7 @@ public class SensorDataCollector {
     void radioReceive() {
         if(nrf.available()) {
 //            byte[] data = nrf.read(nrf.getPayloadSize());
-            byte[] data = nrf.read(nrf.getPayloadSize());
-            System.out.println(new String(data, StandardCharsets.UTF_8));
+            System.out.println(nrf.read());
         } else {
             if(Math.random() < 0.005) {
                 System.out.println("Not get message | " + nrf.getDataRate());

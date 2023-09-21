@@ -237,6 +237,7 @@ public class NRF24 {
             spi.write(data);
         }catch(IOException e){ e.printStackTrace(); }
     }
+
     /***********************************************************************/
     public byte[] read_payload(int size){
         byte[] data = new byte[size+1];
@@ -402,6 +403,19 @@ public class NRF24 {
     /**************************************************************************/
     public byte[] read(int size){
         return read_payload(size);
+    }
+
+    public String read() {
+        byte[] data = this.read(this.getPayloadSize());
+        StringBuilder res = new StringBuilder();
+        for(byte b : data) {
+            if(b == -1) {
+                break;
+            } else {
+                res.append((char)b);
+            }
+        }
+        return res.toString();
     }
     /**************************************************************************/
     public void openWritingPipe(byte[] address){
