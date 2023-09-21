@@ -11,8 +11,8 @@ import java.io.IOException;
 @Configuration
 public class NRFConfig {
 
-    private static final byte[] writingAddress = {(byte)0xaa, (byte)0xaa, 0x00, 0x00, 0x00};
-    private static final byte[] readingAddress = {(byte)0xff, (byte)0xff, 0x00, 0x00, 0x00};
+    private static final byte[] writingAddress = {(byte)0xAA, (byte)0xAA, (byte) 0xAA, (byte) 0xAA, (byte) 0xAA};
+    private static final byte[] readingAddress = {(byte)0xFF, (byte)0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
 
     @Bean
     @Scope("singleton")
