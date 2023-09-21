@@ -37,7 +37,8 @@ public class SensorDataCollector {
     @Scheduled(fixedDelay = 50)
     void radioReceive() {
         if(nrf.available()) {
-            byte[] data = nrf.read(nrf.getPayloadSize());
+//            byte[] data = nrf.read(nrf.getPayloadSize());
+            byte[] data = nrf.read(3);
             System.out.println(Arrays.toString(data));
         } else {
             if(Math.random() < 0.005) {
