@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pi.quadrocopter.model.QI2CDevice;
-import pi.quadrocopter.model.nrf.NRF24;
+import pi.quadrocopter.model.i2c.QI2CDevice;
+import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.ApplicationShutdownManager;
 
 import javax.annotation.PostConstruct;

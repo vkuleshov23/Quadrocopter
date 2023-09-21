@@ -1,4 +1,4 @@
-package pi.quadrocopter.model.nrf;
+package pi.quadrocopter.model.spi;
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;

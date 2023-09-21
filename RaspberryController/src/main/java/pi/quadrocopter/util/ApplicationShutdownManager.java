@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import pi.quadrocopter.model.nrf.NRF24;
+import pi.quadrocopter.model.spi.NRF24;
 
 @Component
 @RequiredArgsConstructor
@@ -17,7 +17,6 @@ public class ApplicationShutdownManager {
     }
 
     public void shutdown(int returnCode) {
-        nrf.shutdown();
         SpringApplication.exit(appContext, () -> returnCode);
     }
 

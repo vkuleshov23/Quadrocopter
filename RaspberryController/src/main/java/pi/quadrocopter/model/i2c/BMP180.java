@@ -1,8 +1,7 @@
-package pi.quadrocopter.model;
+package pi.quadrocopter.model.i2c;
 
 import com.pi4j.io.i2c.I2CBus;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
