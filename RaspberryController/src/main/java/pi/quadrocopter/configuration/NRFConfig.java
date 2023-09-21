@@ -25,7 +25,7 @@ public class NRFConfig {
         nrf.setDataRate(NRF24.RF24_250KBPS);
         nrf.setPALevel(NRF24.RF24_PA_LOW);
         nrf.setPayloadSize((byte) 32);
-        nrf.openWritingPipe(writingAddress);
+//        nrf.openWritingPipe(writingAddress);
         nrf.openReadingPipe(1, readingAddress);
         nrf.startListening();
         return nrf;
