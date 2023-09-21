@@ -22,7 +22,7 @@ public class NRFConfig {
         nrf.setChannel(76);
         nrf.setCRCLength(NRF24.RF24_CRC_16);
         nrf.setRetries((char) 5, (char) 5);
-        nrf.setDataRate(NRF24.RF24_1MBPS);
+        nrf.setDataRate(NRF24.RF24_250KBPS);
         nrf.setPALevel(NRF24.RF24_PA_LOW);
         nrf.setPayloadSize((byte) 32);
         nrf.openWritingPipe(writingAddress);
