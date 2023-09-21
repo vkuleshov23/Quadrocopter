@@ -9,6 +9,7 @@ import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.ApplicationShutdownManager;
 
 import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,8 +39,8 @@ public class SensorDataCollector {
     void radioReceive() {
         if(nrf.available()) {
 //            byte[] data = nrf.read(nrf.getPayloadSize());
-            byte[] data = nrf.read(3);
-            System.out.println(Arrays.toString(data));
+            byte[] data = nrf.read(nrf.getPayloadSize());
+            System.out.println(new String(data, StandardCharsets.UTF_8));
         } else {
             if(Math.random() < 0.005) {
                 System.out.println("Not get message | " + nrf.getDataRate());
