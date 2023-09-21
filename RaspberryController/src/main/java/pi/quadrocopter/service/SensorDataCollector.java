@@ -40,8 +40,8 @@ public class SensorDataCollector {
             byte[] data = nrf.read(nrf.getPayloadSize());
             System.out.println(Arrays.toString(data));
         } else {
-            if(Math.random() < 0.001) {
-                System.out.println("Not get message");
+            if(Math.random() < 0.005) {
+                System.out.println("Not get message | " + nrf.getDataRate());
             }
         }
     }
