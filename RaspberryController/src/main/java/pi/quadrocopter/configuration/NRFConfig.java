@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 import pi.quadrocopter.model.nrf.NRF24;
 
 import java.io.IOException;
-import java.util.HexFormat;
 
 
 @Configuration
