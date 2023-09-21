@@ -27,7 +27,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(cron = "*/1 * * * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     void collect() {
         devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
@@ -39,6 +39,10 @@ public class SensorDataCollector {
         if(nrf.available()) {
             byte[] data = nrf.read(nrf.getPayloadSize());
             System.out.println(Arrays.toString(data));
+        } else {
+            if(Math.random() < 0.01) {
+                System.out.println("Not get message");
+            }
         }
     }
 }
