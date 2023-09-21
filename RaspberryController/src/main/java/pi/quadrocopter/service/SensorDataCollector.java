@@ -34,13 +34,13 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelay = 10)
+    @Scheduled(fixedDelay = 50)
     void radioReceive() {
         if(nrf.available()) {
             byte[] data = nrf.read(nrf.getPayloadSize());
             System.out.println(Arrays.toString(data));
         } else {
-            if(Math.random() < 0.01) {
+            if(Math.random() < 0.001) {
                 System.out.println("Not get message");
             }
         }
