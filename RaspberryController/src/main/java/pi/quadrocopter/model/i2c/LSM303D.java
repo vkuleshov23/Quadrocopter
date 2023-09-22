@@ -11,8 +11,8 @@ public class LSM303D extends QI2CDevice {
 
     private final upm_lsm303d.LSM303D lsm = new upm_lsm303d.LSM303D(1, 0x1D);
 
-    public LSM303D(I2CBus bus, int address) throws IOException {
-        super(bus, address);
+    public LSM303D(I2CBus bus) throws IOException {
+        super(bus, 0x1D);
     }
 
     @Override
