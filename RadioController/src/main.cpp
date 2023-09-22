@@ -23,10 +23,15 @@ void setup() {
   Serial.begin(9600);
   radio.begin();
   Serial.println(F("RF24/examples/StreamingData"));
-  radio.setPALevel(RF24_PA_LOW); 
+  radio.setPALevel(RF24_PA_LOW);
+  radio.setChannel(76);
+  radio.setCRCLength(RF24_CRC_16);
+  radio.setRetries(5, 5);
+  radio.setDataRate(RF24_250KBPS);
+
   radio.setPayloadSize(SIZE);
-  radio.openWritingPipe(0xFFFF);
-  radio.openReadingPipe(1, 0xAAAA);
+  radio.openWritingPipe(0xFFFFFFFFFF);
+  radio.openReadingPipe(1, 0xAAAAAAAAAA);
   radio.startListening();
 
   // For debugging info
