@@ -1,10 +1,12 @@
 package pi.quadrocopter.model.i2c;
 
 import com.pi4j.io.i2c.I2CBus;
+import org.springframework.stereotype.Component;
 import upm_lsm303d.LSM303D_M_RES_T;
 
 import java.io.IOException;
 
+@Component
 public class LSM303D extends QI2CDevice {
 
     private final upm_lsm303d.LSM303D lsm = new upm_lsm303d.LSM303D(1, 0x1D);
