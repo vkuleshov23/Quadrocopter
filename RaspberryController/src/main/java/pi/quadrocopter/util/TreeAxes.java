@@ -6,9 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TreeAxes {
-    public int x;
-    public int y;
-    public int z;
+    public double x;
+    public double y;
+    public double z;
 
     public void setX(int high, int low) {
         this.x = hltoi(high, low);
@@ -22,10 +22,14 @@ public class TreeAxes {
         this.z = hltoi(high, low);
     }
 
-    private int hltoi(int high, int low) {
+    private double hltoi(int high, int low) {
         int i = ((high & 0xFF)*256) + (low & 256);
-        return (i > 32767) ? (i - 65536) : i;
-//        return i;
+        i = ((i > 32767) ? (i - 65536) : i);
+        return normalize(i);
+    }
+
+    private double normalize(int data) {
+        return (double) data / 32768;
     }
 
     @Override
