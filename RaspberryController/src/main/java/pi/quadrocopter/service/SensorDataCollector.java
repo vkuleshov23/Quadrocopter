@@ -30,7 +30,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(cron = "*/10 * * * * *")
+//    @Scheduled(cron = "*/10 * * * * *")
     void collect() {
         devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
@@ -44,7 +44,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelay = 50)
+//    @Scheduled(fixedDelay = 50)
     void radioReceive() {
         if(nrf.available()) {
 //            byte[] data = nrf.read(nrf.getPayloadSize());
