@@ -52,6 +52,7 @@ public class L3GD20 extends QI2CDevice {
         try {
             device.write(L3GD20_CTRL_REG1, (byte) 0x0F);
             device.write(L3GD20_CTRL_REG4, (byte) L3GD20_INT1_CFG);
+            device.write(L3GD20_CTRL_REG5, (byte) (0x10));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
