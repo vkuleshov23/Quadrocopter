@@ -122,6 +122,8 @@ public class LSM303D extends QI2CDevice {
 
     @Override
     public void update() {
+        readAcc();
+        readMag();
     }
 
     private void readAcc() {
