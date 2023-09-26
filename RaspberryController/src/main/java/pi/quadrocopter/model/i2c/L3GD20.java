@@ -7,6 +7,7 @@ import pi.quadrocopter.util.TreeAxes;
 
 import java.io.IOException;
 
+//Gyro
 @Component
 public class L3GD20 extends QI2CDevice {
 

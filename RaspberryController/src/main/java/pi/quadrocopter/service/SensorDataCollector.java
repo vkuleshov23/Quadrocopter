@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import pi.quadrocopter.model.i2c.L3GD20;
 import pi.quadrocopter.model.i2c.QI2CDevice;
 import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.ApplicationShutdownManager;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SensorDataCollector {
 
     private final List<QI2CDevice> devices;
+    private final L3GD20 gyro;
     private final NRF24 nrf;
     private final ApplicationShutdownManager shutdownManager;
 
@@ -32,6 +34,13 @@ public class SensorDataCollector {
     void collect() {
         devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
+    }
+
+    @SneakyThrows
+    @Scheduled(fixedDelay = 200)
+    void l3g() {
+        gyro.update();
+        System.out.println(gyro);
     }
 
     @SneakyThrows
