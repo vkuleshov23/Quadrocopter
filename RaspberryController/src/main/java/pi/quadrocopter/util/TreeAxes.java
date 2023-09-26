@@ -24,7 +24,8 @@ public class TreeAxes {
 
     private int hltoi(int high, int low) {
         int i = ((high & 0xFF)*256) + (low & 256);
-        return (i > 32767) ? (i - 65536) : i;
+//        return (i > 32767) ? (i - 65536) : i;
+        return i;
     }
 
     @Override
