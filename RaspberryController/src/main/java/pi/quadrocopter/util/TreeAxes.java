@@ -25,7 +25,8 @@ public class TreeAxes {
     private double hltoi(int high, int low) {
         int i = ((high & 0xFF)*256) + (low & 256);
         i = ((i > 32767) ? (i - 65536) : i);
-        return normalize(i);
+//        return normalize(i);
+        return i;
     }
 
     private double normalize(int data) {
@@ -34,6 +35,6 @@ public class TreeAxes {
 
     @Override
     public String toString() {
-        return "X: " + x + "\tY: " + y + "\tZ: " + z;
+        return "\nX: " + x + "\nY: " + y + "\nZ: " + z;
     }
 }
