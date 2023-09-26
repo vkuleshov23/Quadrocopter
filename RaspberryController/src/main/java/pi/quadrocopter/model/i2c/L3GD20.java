@@ -1,6 +1,7 @@
 package pi.quadrocopter.model.i2c;
 
 import com.pi4j.io.i2c.I2CBus;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import pi.quadrocopter.util.TreeAxes;
 
@@ -39,6 +40,7 @@ public class L3GD20 extends QI2CDevice {
     private static final int L3GD20_INT1_THS_ZL = 0x37;
     private static final int L3GD20_INT1_DURATION = 0x38;
 
+    @Getter
     private static final TreeAxes axes = new TreeAxes();
 
     public L3GD20(I2CBus bus) throws IOException {
@@ -58,18 +60,15 @@ public class L3GD20 extends QI2CDevice {
     @Override
     public void update() {
         try {
-//            device.write((byte) (L3GD20_OUT_X_L | (1 << 7)));
             int xl = device.read(L3GD20_OUT_X_L);
             int xh = device.read(L3GD20_OUT_X_H);
             int yl = device.read(L3GD20_OUT_Y_L);
             int yh = device.read(L3GD20_OUT_Y_H);
             int zl = device.read(L3GD20_OUT_Z_L);
             int zh = device.read(L3GD20_OUT_Z_H);
-
             axes.setX(xh, xl);
             axes.setY(yh, yl);
             axes.setZ(zh, zl);
-
         } catch (IOException  e) {
             System.out.println(e.getMessage());
         }
