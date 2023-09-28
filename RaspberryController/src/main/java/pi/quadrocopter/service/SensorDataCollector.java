@@ -10,8 +10,6 @@ import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.ApplicationShutdownManager;
 
 import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,21 +28,21 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-//    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "*/5 * * * * *")
     void collect() {
         devices.forEach(QI2CDevice::update);
         devices.forEach(System.out::println);
     }
 
-    @SneakyThrows
-    @Scheduled(fixedDelay = 200)
-    void l3g() {
-        gyro.update();
-        System.out.println(gyro);
-    }
+//    @SneakyThrows
+//    @Scheduled(fixedDelay = 200)
+//    void l3g() {
+//        gyro.update();
+//        System.out.println(gyro);
+//    }
 
     @SneakyThrows
-//    @Scheduled(fixedDelay = 50)
+    @Scheduled(fixedDelay = 50)
     void radioReceive() {
         if(nrf.available()) {
 //            byte[] data = nrf.read(nrf.getPayloadSize());
