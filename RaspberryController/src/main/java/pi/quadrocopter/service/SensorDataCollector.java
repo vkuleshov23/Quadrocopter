@@ -37,7 +37,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelay = 100)
+    @Scheduled(fixedDelay = 200)
     void l3g() {
         gyro.update();
         System.out.println(gyro);
