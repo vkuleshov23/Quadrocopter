@@ -160,6 +160,6 @@ public class LSM303D extends QI2CDevice {
 
     @Override
     public String toString() {
-        return accel.toString() + " | " + mag.toString();
+        return "LSM303D | " + accel.toString() + " | " + mag.toString();
     }
 }

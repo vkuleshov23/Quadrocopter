@@ -80,6 +80,6 @@ public class L3GD20 extends QI2CDevice {
 
     @Override
     public String toString() {
-        return axes.toString();
+        return "L3GD20 | " + axes.toString();
     }
 }

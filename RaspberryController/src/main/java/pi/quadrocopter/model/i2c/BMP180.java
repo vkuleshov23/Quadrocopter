@@ -116,6 +116,6 @@ public class BMP180 extends QI2CDevice {
 
     @Override
     public String toString() {
-        return "Temperature: " + this.T + " Pressure: " + this.P + " Altitude: " + this.A;
+        return "BMP180 | Temperature: " + this.T + " Pressure: " + this.P + " Altitude: " + this.A;
     }
 }
