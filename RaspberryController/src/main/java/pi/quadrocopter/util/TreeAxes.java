@@ -40,6 +40,6 @@ public class TreeAxes {
 
     @Override
     public String toString() {
-        return "\nX: " + x + "\nY: " + y + "\nZ: " + z;
+        return "X: " + x + " Y: " + y + " Z: " + z;
     }
 }
