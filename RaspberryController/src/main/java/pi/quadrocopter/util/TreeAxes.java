@@ -23,9 +23,8 @@ public class TreeAxes {
     }
 
     private double hltoi(int high, int low) {
-        int i = ((high & 0xFF)*256) + (low & 256);
+        int i = ((high & 0xFF) << 8) + (low & 0xFF);
         i = ((i > 32767) ? (i - 65536) : i);
-//        return normalize(i);
         return i;
     }
 
