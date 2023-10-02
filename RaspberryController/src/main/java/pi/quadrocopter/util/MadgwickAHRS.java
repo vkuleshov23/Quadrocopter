@@ -66,7 +66,7 @@ public class MadgwickAHRS {
 
         // Normalise accelerometer measurement
         norm = (float) Math.sqrt(ax * ax + ay * ay + az * az);
-        System.out.print("1");
+        System.out.println("ax: " + ax + "ay: " + ay + "az: " + az + "norm: " + norm);
         if (norm == 0f)
             return; // handle NaN
         norm = 1 / norm; // use reciprocal for division
@@ -76,7 +76,6 @@ public class MadgwickAHRS {
 
         // Normalise magnetometer measurement
         norm = (float) Math.sqrt(mx * mx + my * my + mz * mz);
-        System.out.print("2");
         if (norm == 0f)
             return; // handle NaN
         norm = 1 / norm; // use reciprocal for division
