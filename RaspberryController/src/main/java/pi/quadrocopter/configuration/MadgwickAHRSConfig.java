@@ -10,15 +10,22 @@ import pi.quadrocopter.util.MadgwickAHRS;
 
 import java.time.Duration;
 
+@Configuration
 @ConfigurationProperties("hzInMs")
 public class MadgwickAHRSConfig {
 
     public static final float AHRS_FREQUENCY_Hz = 76.9f;
-    private final MadgwickAHRS ahrs = new MadgwickAHRS(AHRS_FREQUENCY_Hz);
+
+    private final MadgwickAHRS ahrs;
 
     @Getter
     @Setter
-    private Duration delay = Duration.parse(ahrs.getSamplePeriodInMs());
+    private Duration delay;
+
+    public MadgwickAHRSConfig() {
+        ahrs = new MadgwickAHRS(AHRS_FREQUENCY_Hz);
+        delay = Duration.parse(ahrs.getSamplePeriodInMs());
+    }
 
     @Bean
     @Scope("singleton")
