@@ -10,7 +10,6 @@ import pi.quadrocopter.util.MadgwickAHRS;
 
 import java.time.Duration;
 
-@Configuration
 @ConfigurationProperties("hzInMs")
 public class MadgwickAHRSConfig {
 
