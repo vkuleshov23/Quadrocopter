@@ -15,9 +15,8 @@ public class MadgwickAHRS {
         this.samplePeriod = samplePeriod;
     }
 
-    public String getSamplePeriodInMs() {
-        int ms = ((int)((1.0/samplePeriod) * 1000.0));
-        return Integer.toString(ms);
+    public long getSamplePeriodInMs() {
+        return ((long)((1.0/samplePeriod) * 1000.0));
     }
 
     public float getBeta() {
