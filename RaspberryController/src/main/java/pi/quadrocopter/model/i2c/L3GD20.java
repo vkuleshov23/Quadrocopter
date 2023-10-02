@@ -46,7 +46,7 @@ public class L3GD20 extends QI2CDevice {
     private static final int NORMAL_POWER_MODE = 0x0F;
 
     @Getter
-    private final ThreeAxes axes = new ThreeAxes();
+    private ThreeAxes axes = new ThreeAxes();
 
     public L3GD20(I2CBus bus) throws IOException {
         super(bus, L3GD20_ADDRESS);
@@ -57,8 +57,6 @@ public class L3GD20 extends QI2CDevice {
         try {
             device.write(L3GD20_CTRL_REG1, (byte) NORMAL_POWER_MODE);
             device.write(L3GD20_CTRL_REG4, (byte) L3GD20_INT1_CFG);
-//            device.write(L3GD20_CTRL_REG2, (byte) (0b00010000));
-//            device.write(L3GD20_CTRL_REG5, (byte) (0x10));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
