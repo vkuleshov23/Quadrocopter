@@ -1,34 +1,24 @@
 package pi.quadrocopter.util;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class MadgwickAHRS {
 
+    @Getter
+    @Setter
     private float samplePeriod;
+
+    @Getter
+    @Setter
     private float beta;
+
+    @Getter
     private final float[] quaternion;
 
 
-    public float getSamplePeriod() {
-        return samplePeriod;
-    }
-
-    public void setSamplePeriod(float samplePeriod) {
-        this.samplePeriod = samplePeriod;
-    }
-
     public long getSamplePeriodInMs() {
         return ((long)((1.0/samplePeriod) * 1000.0));
-    }
-
-    public float getBeta() {
-        return beta;
-    }
-
-    public void setBeta(float beta) {
-        this.beta = beta;
-    }
-
-    public float[] getQuaternion() {
-        return quaternion;
     }
 
     public MadgwickAHRS(float samplePeriod) {
