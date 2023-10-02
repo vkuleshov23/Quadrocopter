@@ -66,7 +66,7 @@ public class MadgwickAHRS {
 
         // Normalise accelerometer measurement
         norm = (float) Math.sqrt(ax * ax + ay * ay + az * az);
-        System.out.println("ax: " + ax + "ay: " + ay + "az: " + az + "norm: " + norm);
+        System.out.println("ax: " + ax + " ay: " + ay + " az: " + az + " norm: " + norm);
         if (norm == 0f)
             return; // handle NaN
         norm = 1 / norm; // use reciprocal for division
