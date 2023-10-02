@@ -3,7 +3,7 @@ package pi.quadrocopter.model.i2c;
 import com.pi4j.io.i2c.I2CBus;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-import pi.quadrocopter.util.TreeAxes;
+import pi.quadrocopter.util.ThreeAxes;
 
 import java.io.IOException;
 
@@ -88,7 +88,7 @@ public class LSM303D extends QI2CDevice {
     private static final int AODR_50Hz__ALL_AXES_ENABLE = 0x00;
 
     @Getter
-    private static final TreeAxes accel = new TreeAxes();
+    private final ThreeAxes accel = new ThreeAxes();
 
     // Magnetometer
     // 0x64 = 0b01100100
@@ -104,7 +104,7 @@ public class LSM303D extends QI2CDevice {
     private static final int MLP_MD_CCM = 0x00;
 
     @Getter
-    private static final TreeAxes mag = new TreeAxes();
+    private final ThreeAxes mag = new ThreeAxes();
 
     public LSM303D(I2CBus bus) throws IOException {
         super(bus, ADDRESS);

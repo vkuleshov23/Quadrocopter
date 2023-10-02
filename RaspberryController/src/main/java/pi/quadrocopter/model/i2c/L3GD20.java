@@ -3,7 +3,7 @@ package pi.quadrocopter.model.i2c;
 import com.pi4j.io.i2c.I2CBus;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-import pi.quadrocopter.util.TreeAxes;
+import pi.quadrocopter.util.ThreeAxes;
 
 import java.io.IOException;
 
@@ -46,7 +46,7 @@ public class L3GD20 extends QI2CDevice {
     private static final int NORMAL_POWER_MODE = 0x0F;
 
     @Getter
-    private static final TreeAxes axes = new TreeAxes();
+    private final ThreeAxes axes = new ThreeAxes();
 
     public L3GD20(I2CBus bus) throws IOException {
         super(bus, L3GD20_ADDRESS);

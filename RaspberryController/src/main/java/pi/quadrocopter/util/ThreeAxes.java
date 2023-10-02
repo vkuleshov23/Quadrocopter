@@ -5,10 +5,10 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TreeAxes {
-    public double x;
-    public double y;
-    public double z;
+public class ThreeAxes {
+    public float x;
+    public float y;
+    public float z;
 
     public void setX(int high, int low) {
         this.x = hltoi(high, low);
@@ -22,20 +22,20 @@ public class TreeAxes {
         this.z = hltoi(high, low);
     }
 
-    private double hltoi(int high, int low) {
+    private float hltoi(int high, int low) {
         int i = ((high & 0xFF) << 8) | (low & 0xFF);
         i = ((i > 32767) ? (i - 65536) : i);
-        return i;
+        return (float) i;
     }
 
-    public void mull(double num) {
+    public void mull(float num) {
         this.x *= num;
         this.y *= num;
         this.z *= num;
     }
 
-    private double normalize(int data) {
-        return (double) data / 32768;
+    private float normalize(int data) {
+        return (float) data / 32768;
     }
 
     @Override
