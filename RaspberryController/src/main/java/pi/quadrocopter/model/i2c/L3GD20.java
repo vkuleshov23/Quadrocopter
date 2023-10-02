@@ -76,7 +76,7 @@ public class L3GD20 extends QI2CDevice {
             axes.setX(xh, xl);
             axes.setY(yh, yl);
             axes.setZ(zh, zl);
-            axes.mull(0.07);
+            axes.mull(0.07f);
         } catch (IOException  e) {
             System.out.println(e.getMessage());
         }
