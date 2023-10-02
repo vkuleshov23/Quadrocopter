@@ -24,7 +24,6 @@ public class SensorDataCollector {
     private final LSM303D accMag;
     private final BMP180 tempPress;
     private final NRF24 nrf;
-    private final ApplicationShutdownManager shutdownManager;
 
     @SneakyThrows
     @PostConstruct
