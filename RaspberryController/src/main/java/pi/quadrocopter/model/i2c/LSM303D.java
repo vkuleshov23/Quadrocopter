@@ -79,8 +79,30 @@ public class LSM303D extends QI2CDevice {
     private static final int LSM303D_OUT_Z_L_M = 0x0C;
     private static final int LSM303D_OUT_Z_H_M = 0x0D;
 
+    // Accelerometer
+    // AFS = 0 (+/- 2 g full scale)
+    private static final int AFS_2G = 0x00;
+
+    // 0x57 = 0b01010111
+    // AODR = 0101 (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
+    private static final int AODR_50Hz__ALL_AXES_ENABLE = 0x00;
+
     @Getter
     private static final TreeAxes accel = new TreeAxes();
+
+    // Magnetometer
+    // 0x64 = 0b01100100
+    // M_RES = 11 (high resolution mode); M_ODR = 001 (6.25 Hz ODR)
+    private static final int HIGH_RES_MODE__6_25Hz_ODR = 0x64;
+
+    // 0x20 = 0b00100000
+    // MFS = 01 (+/- 4 gauss full scale)
+    private static final int MFS_4G = 0x20;
+
+    // 0x00 = 0b00000000
+    // MLP = 0 (low power mode off); MD = 00 (continuous-conversion mode)
+    private static final int MLP_MD_CCM = 0x00;
+
     @Getter
     private static final TreeAxes mag = new TreeAxes();
 
@@ -91,30 +113,11 @@ public class LSM303D extends QI2CDevice {
     @Override
     public void init() {
         try {
-            // Accelerometer
-
-            // 0x57 = 0b01010111
-            // AFS = 0 (+/- 2 g full scale)
-            device.write(LSM303D_CTRL2, (byte) 0x00);
-
-            // 0x57 = 0b01010111
-            // AODR = 0101 (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
-            device.write(LSM303D_CTRL1, (byte) 0x57);
-
-            // Magnetometer
-
-            // 0x64 = 0b01100100
-            // M_RES = 11 (high resolution mode); M_ODR = 001 (6.25 Hz ODR)
-            device.write(LSM303D_CTRL5, (byte) 0x64);
-
-            // 0x20 = 0b00100000
-            // MFS = 01 (+/- 4 gauss full scale)
-            device.write(LSM303D_CTRL6, (byte) 0x00);
-
-            // 0x00 = 0b00000000
-            // MLP = 0 (low power mode off); MD = 00 (continuous-conversion mode)
-            device.write(LSM303D_CTRL7, (byte) 0x00);
-
+            device.write(LSM303D_CTRL2, (byte) AFS_2G);
+            device.write(LSM303D_CTRL1, (byte) AODR_50Hz__ALL_AXES_ENABLE);
+            device.write(LSM303D_CTRL5, (byte) HIGH_RES_MODE__6_25Hz_ODR);
+            device.write(LSM303D_CTRL6, (byte) MFS_4G);
+            device.write(LSM303D_CTRL7, (byte) MLP_MD_CCM);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

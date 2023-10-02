@@ -41,6 +41,10 @@ public class L3GD20 extends QI2CDevice {
     private static final int L3GD20_INT1_THS_ZL = 0x37;
     private static final int L3GD20_INT1_DURATION = 0x38;
 
+    // 0x0F = 0b00001111
+    // Normal power mode, all axes enabled
+    private static final int NORMAL_POWER_MODE = 0x0F;
+
     @Getter
     private static final TreeAxes axes = new TreeAxes();
 
@@ -51,7 +55,7 @@ public class L3GD20 extends QI2CDevice {
     @Override
     public void init() {
         try {
-            device.write(L3GD20_CTRL_REG1, (byte) 0x0F);
+            device.write(L3GD20_CTRL_REG1, (byte) NORMAL_POWER_MODE);
             device.write(L3GD20_CTRL_REG4, (byte) L3GD20_INT1_CFG);
 //            device.write(L3GD20_CTRL_REG2, (byte) (0b00010000));
 //            device.write(L3GD20_CTRL_REG5, (byte) (0x10));
