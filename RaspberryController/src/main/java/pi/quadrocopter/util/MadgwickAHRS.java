@@ -157,10 +157,10 @@ public class MadgwickAHRS {
         q2 += qDot2 * samplePeriod;
         q3 += qDot3 * samplePeriod;
         q4 += qDot4 * samplePeriod;
-        System.out.println(q1);
-        System.out.println(qDot1);
-        System.out.println(q3);
-        System.out.println(qDot3);
+        System.out.println("q1: " + q1);
+        System.out.println("qDot1: " + qDot1);
+        System.out.println("q3: " + q3);
+        System.out.println("qDot3: " + qDot3);
         norm = 1f / (float) Math.sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4); // normalise
         // quaternion
         quaternion[0] = q1 * norm;
