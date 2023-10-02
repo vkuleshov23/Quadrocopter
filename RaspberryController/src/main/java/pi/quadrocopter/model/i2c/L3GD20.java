@@ -46,7 +46,7 @@ public class L3GD20 extends QI2CDevice {
     private static final int NORMAL_POWER_MODE = 0x0F;
 
     @Getter
-    private ThreeAxes axes = new ThreeAxes();
+    private final ThreeAxes axes = new ThreeAxes();
 
     public L3GD20(I2CBus bus) throws IOException {
         super(bus, L3GD20_ADDRESS);
