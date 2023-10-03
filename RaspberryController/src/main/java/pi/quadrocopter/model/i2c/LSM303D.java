@@ -103,6 +103,8 @@ public class LSM303D extends QI2CDevice {
     // MLP = 0 (low power mode off); MD = 00 (continuous-conversion mode)
     private static final int MLP_MD_CCM = 0x00;
 
+    private static final float DEFAULT_G = 2.0f;
+
     @Getter
     private final ThreeAxes mag = new ThreeAxes();
 
@@ -137,9 +139,9 @@ public class LSM303D extends QI2CDevice {
             int yha = device.read(LSM303D_OUT_Y_H_A);
             int zla = device.read(LSM303D_OUT_Z_L_A);
             int zha = device.read(LSM303D_OUT_Z_H_A);
-            accel.setX(xha, xla);
-            accel.setY(yha, yla);
-            accel.setZ(zha, zla);
+            accel.setX(xha, xla, DEFAULT_G);
+            accel.setY(yha, yla, DEFAULT_G);
+            accel.setZ(zha, zla, DEFAULT_G);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -153,9 +155,9 @@ public class LSM303D extends QI2CDevice {
             int yhm = device.read(LSM303D_OUT_Y_H_M);
             int zlm = device.read(LSM303D_OUT_Z_L_M);
             int zhm = device.read(LSM303D_OUT_Z_H_M);
-            mag.setX(xhm, xlm);
-            mag.setY(yhm, ylm);
-            mag.setZ(zhm, zlm);
+            mag.setX(xhm, xlm, 1.0f);
+            mag.setY(yhm, ylm, 1.0f);
+            mag.setZ(zhm, zlm, 1.0f);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

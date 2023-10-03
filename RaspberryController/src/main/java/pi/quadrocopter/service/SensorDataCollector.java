@@ -43,15 +43,15 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelayString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
     void ahrs() {
         gyro.update();
         accMag.update();
         ThreeAxes gyroAxes = gyro.getAxes();
         ThreeAxes accAxes = accMag.getAccel();
         ThreeAxes magAxes = accMag.getMag();
-        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
-//        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
+//        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
+        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
         System.out.println("GYRO: " + gyroAxes);
         System.out.println("ACC: " + accAxes);
     }

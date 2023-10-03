@@ -45,6 +45,9 @@ public class L3GD20 extends QI2CDevice {
     // Normal power mode, all axes enabled
     private static final int NORMAL_POWER_MODE = 0x0F;
 
+
+    private static final float DEFAULT_DPS = 250.0f;
+
     @Getter
     private final ThreeAxes axes = new ThreeAxes();
 
@@ -71,9 +74,9 @@ public class L3GD20 extends QI2CDevice {
             int yh = device.read(L3GD20_OUT_Y_H);
             int zl = device.read(L3GD20_OUT_Z_L);
             int zh = device.read(L3GD20_OUT_Z_H);
-            axes.setX(xh, xl);
-            axes.setY(yh, yl);
-            axes.setZ(zh, zl);
+            axes.setX(xh, xl, DEFAULT_DPS);
+            axes.setY(yh, yl, DEFAULT_DPS);
+            axes.setZ(zh, zl, DEFAULT_DPS);
 //            axes.mull(0.07f);
         } catch (IOException  e) {
             System.out.println(e.getMessage());
