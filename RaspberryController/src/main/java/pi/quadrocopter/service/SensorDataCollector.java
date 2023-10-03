@@ -43,7 +43,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelayString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
 //    @Scheduled(fixedDelay = 13)
     void ahrs() {
         gyro.update();
