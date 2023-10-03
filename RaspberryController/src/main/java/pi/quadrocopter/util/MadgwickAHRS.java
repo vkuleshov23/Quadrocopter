@@ -196,10 +196,10 @@ public class MadgwickAHRS {
 
         // Normalise quaternion
         recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
-        q0 *= recipNorm;
-        q1 *= recipNorm;
-        q2 *= recipNorm;
-        q3 *= recipNorm;
+        quaternion[0] = q0 * recipNorm;
+        quaternion[1] = q1 * recipNorm;
+        quaternion[2] = q2 * recipNorm;
+        quaternion[3] =  q3 * recipNorm;
     }
 
     private float invSqrt(float x) {
