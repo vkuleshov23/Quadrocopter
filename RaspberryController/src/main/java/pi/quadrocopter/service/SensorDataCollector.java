@@ -64,7 +64,7 @@ public class SensorDataCollector {
 
         synchronized (averageData) {
             ArrayList<Float> a = new ArrayList<>(3);
-            averageData.add(new ThreeAxes(accAxes));
+            averageData.add(new ThreeAxes(magAxes));
         }
     }
 
