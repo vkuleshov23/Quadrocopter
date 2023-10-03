@@ -10,6 +10,18 @@ public class ThreeAxes {
     public float y;
     public float z;
 
+    public void setX(int high, int low) {
+        this.x = hltoi(high, low);
+    }
+
+    public void setY(int high, int low) {
+        this.y = hltoi(high, low);
+    }
+
+    public void setZ(int high, int low) {
+        this.z = hltoi(high, low);
+    }
+
     public void setX(int high, int low, float g) {
         this.x = hltoi(high, low, g);
     }
@@ -26,6 +38,12 @@ public class ThreeAxes {
         int i = ((high & 0xFF) << 8) | (low & 0xFF);
         i = ((i > 32767) ? (i - 65536) : i);
         return  (i * g) / 32768.0f;
+    }
+
+    private float hltoi(int high, int low) {
+        int i = ((high & 0xFF) << 8) | (low & 0xFF);
+        i = ((i > 32767) ? (i - 65536) : i);
+        return (float) i;
     }
 
     public void mull(float num) {

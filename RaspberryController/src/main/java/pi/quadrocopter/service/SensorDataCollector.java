@@ -53,7 +53,9 @@ public class SensorDataCollector {
 //        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
 //        System.out.println("GYRO: " + gyroAxes);
-//        System.out.println("ACC: " + accAxes);
+        if(Math.random() > 0.75) {
+            System.out.println("ACC: " + accAxes);
+        }
     }
 
     @SneakyThrows
