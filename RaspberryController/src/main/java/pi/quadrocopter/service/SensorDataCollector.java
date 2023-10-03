@@ -38,8 +38,8 @@ public class SensorDataCollector {
     void mainLoop() {
         tempPress.update();
         System.out.println(tempPress);
-        float[] q = ahrs.getQuaternion();
-        System.out.println("AHRS: " + Arrays.toString(q));
+        ThreeAxes q = ahrs.getEulerAngles();
+        System.out.println("AHRS: " + q);
     }
 
     @SneakyThrows

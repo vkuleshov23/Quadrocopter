@@ -202,7 +202,7 @@ public class MadgwickAHRS {
         q3 *= recipNorm;
     }
 
-    float invSqrt(float x) {
+    private float invSqrt(float x) {
         float xhalf = 0.5f * x;
         int i = Float.floatToIntBits(x);
         i = 0x5f3759df - (i >> 1);
@@ -211,7 +211,7 @@ public class MadgwickAHRS {
         return x;
     }
 
-    private ThreeAxes getEulerAngles() {
+    public ThreeAxes getEulerAngles() {
         ThreeAxes axes = new ThreeAxes();
         double sinr_cosp = 2 * (quaternion[0] * quaternion[1] + quaternion[2] * quaternion[3]);
         double cosr_cosp = 1 - 2 * (quaternion[1] * quaternion[1] + quaternion[2] * quaternion[2]);
