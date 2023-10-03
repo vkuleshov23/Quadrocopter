@@ -85,7 +85,7 @@ public class LSM303D extends QI2CDevice {
 
     // 0x57 = 0b01010111
     // AODR = 0101 (50 Hz ODR); AZEN = AYEN = AXEN = 1 (all axes enabled)
-    private static final int AODR_50Hz__ALL_AXES_ENABLE = 0x00;
+    private static final int AODR_50Hz__ALL_AXES_ENABLE = 0x57;
 
     @Getter
     private final ThreeAxes accel = new ThreeAxes();

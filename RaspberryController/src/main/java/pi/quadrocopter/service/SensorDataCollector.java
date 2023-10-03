@@ -49,7 +49,6 @@ public class SensorDataCollector {
         gyro.update();
         accMag.update();
         ThreeAxes gyroAxes = gyro.getAxes();
-        System.out.println(accMag);
         ThreeAxes accAxes = accMag.getAccel();
         ThreeAxes magAxes = accMag.getMag();
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
