@@ -34,7 +34,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(cron = "*/5 * * * * *")
+    @Scheduled(cron = "*/1 * * * * *")
     void bmp() {
         tempPress.update();
         System.out.println(tempPress);
@@ -43,8 +43,8 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-//    @Scheduled(fixedDelayString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
-    @Scheduled(fixedDelay = 13)
+    @Scheduled(fixedDelayString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+//    @Scheduled(fixedDelay = 13)
     void ahrs() {
         gyro.update();
         accMag.update();
