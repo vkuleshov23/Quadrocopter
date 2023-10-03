@@ -62,7 +62,7 @@ public class SensorDataCollector {
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
         synchronized (averageData) {
             ArrayList<Float> a = new ArrayList<>(3);
-            averageData.add(new ThreeAxes(gyroAxes));
+            averageData.add(new ThreeAxes(accAxes));
         }
     }
 
