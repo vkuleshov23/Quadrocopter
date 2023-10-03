@@ -8,13 +8,11 @@ import pi.quadrocopter.model.i2c.BMP180;
 import pi.quadrocopter.model.i2c.L3GD20;
 import pi.quadrocopter.model.i2c.LSM303D;
 import pi.quadrocopter.model.spi.NRF24;
-import pi.quadrocopter.util.ApplicationShutdownManager;
 import pi.quadrocopter.util.MadgwickAHRS;
 import pi.quadrocopter.util.ThreeAxes;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +24,7 @@ public class SensorDataCollector {
     private final BMP180 tempPress;
     private final NRF24 nrf;
 
-    private final ArrayList<ThreeAxes> accdata = new ArrayList<>(80);
+    private final ArrayList<ThreeAxes> averageData = new ArrayList<>(80);
 
     @SneakyThrows
     @PostConstruct
@@ -43,12 +41,12 @@ public class SensorDataCollector {
         System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
         System.out.println("AHRS: " + q);
-        synchronized (accdata) {
-            double resx = (accdata.stream().mapToDouble(ax -> ax.x).sum()) / accdata.size();
-            double resy = (accdata.stream().mapToDouble(ax -> ax.y).sum()) / accdata.size();
-            double resz = (accdata.stream().mapToDouble(ax -> ax.z).sum()) / accdata.size();
+        synchronized (averageData) {
+            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
+            double resy = (averageData.stream().mapToDouble(ax -> ax.y).sum()) / averageData.size();
+            double resz = (averageData.stream().mapToDouble(ax -> ax.z).sum()) / averageData.size();
             System.out.println("X " + resx + " Y " + resy + " Z " + resz);
-            accdata.clear();
+            averageData.clear();
         }
     }
 
@@ -62,9 +60,9 @@ public class SensorDataCollector {
         ThreeAxes magAxes = accMag.getMag();
 //        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
-        synchronized (accdata) {
+        synchronized (averageData) {
             ArrayList<Float> a = new ArrayList<>(3);
-            accdata.add(new ThreeAxes(accAxes));
+            averageData.add(new ThreeAxes(gyroAxes));
         }
     }
 
