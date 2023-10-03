@@ -11,10 +11,11 @@ import java.time.Duration;
 public class MadgwickAHRSConfig {
 
     public static final float AHRS_FREQUENCY_Hz = 76.9f;
+    public static final float AHRS_BETA = 0.2f;
 
     @Bean
     @Scope("singleton")
     public MadgwickAHRS madgwickAHRS() {
-        return new MadgwickAHRS(AHRS_FREQUENCY_Hz);
+        return new MadgwickAHRS(AHRS_FREQUENCY_Hz, AHRS_BETA);
     }
 }
