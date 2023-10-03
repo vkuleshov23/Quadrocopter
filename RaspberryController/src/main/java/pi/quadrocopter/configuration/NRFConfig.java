@@ -16,7 +16,7 @@ public class NRFConfig {
 
     @Bean
     @Scope("singleton")
-    public NRF24 getRadio() throws IOException {
+    public NRF24 nrf() throws IOException {
         NRF24 nrf = new NRF24();
         nrf.begin();
         nrf.setChannel(76);
