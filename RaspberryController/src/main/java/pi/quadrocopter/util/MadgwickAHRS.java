@@ -33,7 +33,6 @@ public class MadgwickAHRS {
 
     public void update(float gx, float gy, float gz, float ax, float ay,
                        float az, float mx, float my, float mz) {
-        float q0 = quaternion[0], q1 = quaternion[1], q2 = quaternion[2], q3 = quaternion[3]; // short
 
         float recipNorm;
         float s0, s1, s2, s3;
@@ -46,6 +45,8 @@ public class MadgwickAHRS {
             update(gx, gy, gz, ax, ay, az);
             return;
         }
+
+        float q0 = quaternion[0], q1 = quaternion[1], q2 = quaternion[2], q3 = quaternion[3]; // short
 
         // Rate of change of quaternion from gyroscope
         qDot1 = 0.5f * (-q1 * gx - q2 * gy - q3 * gz);
@@ -124,10 +125,10 @@ public class MadgwickAHRS {
 
         // Normalise quaternion
         recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
-        q0 *= recipNorm;
-        q1 *= recipNorm;
-        q2 *= recipNorm;
-        q3 *= recipNorm;
+        quaternion[0] = q0 * recipNorm;
+        quaternion[1] = q1 * recipNorm;
+        quaternion[2] = q2 * recipNorm;
+        quaternion[3] =  q3 * recipNorm;
     }
 
     public void update(float gx, float gy, float gz, float ax, float ay,
