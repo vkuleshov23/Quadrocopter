@@ -48,6 +48,7 @@ public class SensorDataCollector {
             double resy = (accdata.stream().mapToDouble(ax -> ax.y).sum()) / accdata.size();
             double resz = (accdata.stream().mapToDouble(ax -> ax.z).sum()) / accdata.size();
             System.out.println("X " + resx + " Y " + resy + " Z " + resz);
+            accdata.clear();
         }
     }
 
