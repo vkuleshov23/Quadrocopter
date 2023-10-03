@@ -38,17 +38,17 @@ public class SensorDataCollector {
     @Scheduled(cron = "*/1 * * * * *")
     void mainLoop() {
         tempPress.update();
-//        System.out.println(tempPress);
+        System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
-//        System.out.println("AHRS: " + q);
+        System.out.println("AHRS: " + q);
 
-        synchronized (averageData) {
-            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
-            double resy = (averageData.stream().mapToDouble(ax -> ax.y).sum()) / averageData.size();
-            double resz = (averageData.stream().mapToDouble(ax -> ax.z).sum()) / averageData.size();
-            System.out.println("X " + resx + " Y " + resy + " Z " + resz);
-            averageData.clear();
-        }
+//        synchronized (averageData) {
+//            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
+//            double resy = (averageData.stream().mapToDouble(ax -> ax.y).sum()) / averageData.size();
+//            double resz = (averageData.stream().mapToDouble(ax -> ax.z).sum()) / averageData.size();
+//            System.out.println("X " + resx + " Y " + resy + " Z " + resz);
+//            averageData.clear();
+//        }
     }
 
     @SneakyThrows
@@ -62,10 +62,10 @@ public class SensorDataCollector {
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
 //        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
 
-        synchronized (averageData) {
-            ArrayList<Float> a = new ArrayList<>(3);
-            averageData.add(new ThreeAxes(magAxes));
-        }
+//        synchronized (averageData) {
+//            ArrayList<Float> a = new ArrayList<>(3);
+//            averageData.add(new ThreeAxes(magAxes));
+//        }
     }
 
     @SneakyThrows
