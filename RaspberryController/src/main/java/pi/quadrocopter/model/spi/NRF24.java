@@ -3,6 +3,8 @@ import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
 import com.pi4j.io.gpio.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -13,6 +15,10 @@ public class NRF24 {
         public static SpiChannel channel = SpiChannel.CS0;
         public static Pin ce = RaspiPin.GPIO_22;
     }
+
+    @Getter
+    @Setter
+    private long sampleMS;
 
     //Memory map
     public static final byte CONFIG=0x0;

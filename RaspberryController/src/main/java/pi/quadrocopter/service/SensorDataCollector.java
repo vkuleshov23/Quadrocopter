@@ -35,7 +35,7 @@ public class SensorDataCollector {
 
     @SneakyThrows
     @Scheduled(cron = "*/1 * * * * *")
-    void bmp() {
+    void mainLoop() {
         tempPress.update();
         System.out.println(tempPress);
         float[] q = ahrs.getQuaternion();
@@ -44,7 +44,6 @@ public class SensorDataCollector {
 
     @SneakyThrows
     @Scheduled(fixedDelayString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
-//    @Scheduled(fixedDelay = 13)
     void ahrs() {
         gyro.update();
         accMag.update();
@@ -55,16 +54,12 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelay = 50)
-    void radioReceive() {
+    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
+    void radio() {
         if(nrf.available()) {
-//            byte[] data = nrf.read(nrf.getPayloadSize());
             System.out.println(nrf.read());
         } else {
             nrf.startListening();
-            if(Math.random() < 0.005) {
-                System.out.println("Not get message | " + nrf.getDataRate());
-            }
         }
     }
 }

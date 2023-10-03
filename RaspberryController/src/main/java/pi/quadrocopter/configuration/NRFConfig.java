@@ -28,6 +28,7 @@ public class NRFConfig {
 //        nrf.openWritingPipe(writingAddress);
         nrf.openReadingPipe(1, readingAddress);
         nrf.startListening();
+        nrf.setSampleMS(50);
         return nrf;
     }
 }

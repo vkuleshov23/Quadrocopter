@@ -2,6 +2,7 @@ package pi.quadrocopter.util;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Synchronized;
 
 public class MadgwickAHRS {
 
@@ -13,9 +14,11 @@ public class MadgwickAHRS {
     @Setter
     private float beta;
 
-    @Getter
     private final float[] quaternion;
 
+    public synchronized float[] getQuaternion() {
+        return new float[] {quaternion[0], quaternion[1], quaternion[2], quaternion[3]};
+    }
 
     public long getSamplePeriodInMs() {
         return ((long)((1.0/samplePeriod) * 1000.0));
@@ -31,9 +34,8 @@ public class MadgwickAHRS {
         this.quaternion = new float[] { 1f, 0f, 0f, 0f };
     }
 
-    public void update(float gx, float gy, float gz, float ax, float ay,
+    public synchronized void update(float gx, float gy, float gz, float ax, float ay,
                        float az, float mx, float my, float mz) {
-
         float recipNorm;
         float s0, s1, s2, s3;
         float qDot1, qDot2, qDot3, qDot4;
@@ -131,7 +133,7 @@ public class MadgwickAHRS {
         quaternion[3] =  q3 * recipNorm;
     }
 
-    public void update(float gx, float gy, float gz, float ax, float ay,
+    public synchronized void update(float gx, float gy, float gz, float ax, float ay,
                        float az) {
         float q0 = quaternion[0], q1 = quaternion[1], q2 = quaternion[2], q3 = quaternion[3]; // short
 
