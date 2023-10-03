@@ -11,7 +11,7 @@ import java.time.Duration;
 public class MadgwickAHRSConfig {
 
     public static final float AHRS_FREQUENCY_Hz = 76.9f;
-    public static final float AHRS_BETA = 0.2f;
+    public static final float AHRS_BETA = 0.5f;
 
     @Bean
     @Scope("singleton")
