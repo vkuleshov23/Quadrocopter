@@ -10,6 +10,12 @@ public class ThreeAxes {
     public float y;
     public float z;
 
+    public ThreeAxes(ThreeAxes ta) {
+        this.x = ta.x;
+        this.y = ta.y;
+        this.z = ta.z;
+    }
+
     public void setX(int high, int low) {
         this.x = hltoi(high, low);
     }

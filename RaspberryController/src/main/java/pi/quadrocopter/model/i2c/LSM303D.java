@@ -142,6 +142,7 @@ public class LSM303D extends QI2CDevice {
             accel.setX(xha, xla, DEFAULT_G);
             accel.setY(yha, yla, DEFAULT_G);
             accel.setZ(zha, zla, DEFAULT_G);
+            // 1g == 1 ; 2g == 2; <2g == 2; -1g == 1; ...
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

@@ -13,6 +13,7 @@ import pi.quadrocopter.util.MadgwickAHRS;
 import pi.quadrocopter.util.ThreeAxes;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 @Service
@@ -24,6 +25,8 @@ public class SensorDataCollector {
     private final LSM303D accMag;
     private final BMP180 tempPress;
     private final NRF24 nrf;
+
+    private final ArrayList<ThreeAxes> accdata = new ArrayList<>(80);
 
     @SneakyThrows
     @PostConstruct
@@ -40,6 +43,12 @@ public class SensorDataCollector {
         System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
         System.out.println("AHRS: " + q);
+        synchronized (accdata) {
+            double resx = (accdata.stream().mapToDouble(ax -> ax.x).sum()) / accdata.size();
+            double resy = (accdata.stream().mapToDouble(ax -> ax.y).sum()) / accdata.size();
+            double resz = (accdata.stream().mapToDouble(ax -> ax.z).sum()) / accdata.size();
+            System.out.println("X " + resx + " Y " + resy + " Z " + resz);
+        }
     }
 
     @SneakyThrows
@@ -52,9 +61,9 @@ public class SensorDataCollector {
         ThreeAxes magAxes = accMag.getMag();
 //        ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z);
         ahrs.update(gyroAxes.x, gyroAxes.y, gyroAxes.z, accAxes.x, accAxes.y, accAxes.z);
-//        System.out.println("GYRO: " + gyroAxes);
-        if(Math.random() > 0.75) {
-            System.out.println("ACC: " + accAxes);
+        synchronized (accdata) {
+            ArrayList<Float> a = new ArrayList<>(3);
+            accdata.add(new ThreeAxes(accAxes));
         }
     }
 
