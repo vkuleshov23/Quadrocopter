@@ -58,6 +58,12 @@ public class ThreeAxes {
         this.z *= num;
     }
 
+    public void div(float num) {
+        this.x /= num;
+        this.y /= num;
+        this.z /= num;
+    }
+
     private float normalize(int data) {
         return (float) data / 32768;
     }

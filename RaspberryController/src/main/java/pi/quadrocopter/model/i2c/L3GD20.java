@@ -45,8 +45,16 @@ public class L3GD20 extends QI2CDevice {
     // Normal power mode, all axes enabled
     private static final int NORMAL_POWER_MODE = 0x0F;
 
-
+    // * <pre>
+    // * FS_SEL | Full Scale Range   | LSB Sensitivity
+    // * -------+--------------------+----------------
+    // * 0      | +/- 250 degrees/s  | 131 LSB/deg/s
+    // * 1      | +/- 500 degrees/s  | 65.5 LSB/deg/s
+    // * 2      | +/- 1000 degrees/s | 32.8 LSB/deg/s
+    // * 3      | +/- 2000 degrees/s | 16.4 LSB/deg/s
+    // * </pre>
     private static final float DEFAULT_DPS = 250.0f;
+    private static final float LSB_DEG_S = 131.0f;
 
     @Getter
     private final ThreeAxes axes = new ThreeAxes();
@@ -74,10 +82,10 @@ public class L3GD20 extends QI2CDevice {
             int yh = device.read(L3GD20_OUT_Y_H);
             int zl = device.read(L3GD20_OUT_Z_L);
             int zh = device.read(L3GD20_OUT_Z_H);
-            axes.setX(xh, xl, DEFAULT_DPS);
-            axes.setY(yh, yl, DEFAULT_DPS);
-            axes.setZ(zh, zl, DEFAULT_DPS);
-//            axes.mull(0.07f);
+            axes.setX(xh, xl);
+            axes.setY(yh, yl);
+            axes.setZ(zh, zl);
+            axes.div(LSB_DEG_S); // to degrees
         } catch (IOException  e) {
             System.out.println(e.getMessage());
         }
