@@ -10,7 +10,7 @@ import java.time.Duration;
 @Configuration
 public class MadgwickAHRSConfig {
 
-    public static final float AHRS_FREQUENCY_Hz = 76.9f;
+    public static final float AHRS_FREQUENCY_Hz = 72.7f;
     public static final float AHRS_BETA = 0.5f;
 
     @Bean
