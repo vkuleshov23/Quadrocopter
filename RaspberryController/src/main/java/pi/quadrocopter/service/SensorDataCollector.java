@@ -60,17 +60,18 @@ public class SensorDataCollector {
         ThreeAxes accAxes = accMag.getAccel();
         ThreeAxes magAxes = accMag.getMag();
 
-//        ahrs.update(
-//                (float) Math.toRadians(gyroAxes.x),
-//                (float) Math.toRadians(gyroAxes.x),
-//                (float) Math.toRadians(gyroAxes.x),
-//                accAxes.x, accAxes.y, accAxes.z, magAxes.x, magAxes.y, magAxes.z
-//        );
-        ahrs.update((float) Math.toRadians(gyroAxes.x),
+        ahrs.update(
+                (float) Math.toRadians(gyroAxes.x),
                 (float) Math.toRadians(gyroAxes.y),
                 (float) Math.toRadians(gyroAxes.z),
-                accAxes.x, accAxes.y, accAxes.z
+                accAxes.x, accAxes.y, accAxes.z,
+                magAxes.x, magAxes.y, magAxes.z
         );
+//        ahrs.update((float) Math.toRadians(gyroAxes.x),
+//                (float) Math.toRadians(gyroAxes.y),
+//                (float) Math.toRadians(gyroAxes.z),
+//                accAxes.x, accAxes.y, accAxes.z
+//        );
 
 //        synchronized (averageData) {
 //            ArrayList<Float> a = new ArrayList<>(3);
