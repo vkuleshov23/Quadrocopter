@@ -45,14 +45,13 @@ public class L3GD20 extends QI2CDevice {
     // Normal power mode, all axes enabled
     private static final int NORMAL_POWER_MODE = 0x0F;
 
-    // * <pre>
+
     // * FS_SEL | Full Scale Range   | LSB Sensitivity
     // * -------+--------------------+----------------
     // * 0      | +/- 250 degrees/s  | 131 LSB/deg/s
     // * 1      | +/- 500 degrees/s  | 65.5 LSB/deg/s
     // * 2      | +/- 1000 degrees/s | 32.8 LSB/deg/s
     // * 3      | +/- 2000 degrees/s | 16.4 LSB/deg/s
-    // * </pre>
     private static final float DEFAULT_DPS = 250.0f;
     private static final float LSB_DEG_S = 131.0f;
 

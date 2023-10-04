@@ -40,7 +40,7 @@ public class SensorDataCollector {
         tempPress.update();
 //        System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
-        System.out.println("AHRS: " + q);
+        System.out.println("AHRS: X" + Math.toDegrees(q.x) + " Y: " + Math.toDegrees(q.y) + " Z: " + Math.toDegrees(q.z));
 
 //        synchronized (averageData) {
 //            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
