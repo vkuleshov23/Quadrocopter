@@ -38,7 +38,7 @@ public class SensorDataCollector {
     @Scheduled(cron = "*/1 * * * * *")
     void mainLoop() {
         tempPress.update();
-        System.out.println(tempPress);
+//        System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
         System.out.println("AHRS: " + q);
 
