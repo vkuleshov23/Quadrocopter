@@ -10,9 +10,12 @@ import java.nio.charset.StandardCharsets;
 @UtilityClass
 public class MagnetometerCalibration {
 
-    public static final float x_offset = 474.114891f;
-    public static final float y_offset = -84.097065f;
-    public static final float z_offset = 185.820849f;
+//    public static final float x_offset = 474.114891f;
+//    public static final float y_offset = -84.097065f;
+//    public static final float z_offset = 185.820849f;
+    public static final float x_offset = 2976.5f;
+    public static final float y_offset = 2922.0f;
+    public static final float z_offset = 2772.5f;
 
     private static final int calibrationSamples = 2_000;
     private static final int timeOffset = 50;
