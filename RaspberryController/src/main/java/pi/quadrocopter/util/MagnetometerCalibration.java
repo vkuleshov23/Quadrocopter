@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
 @UtilityClass
 public class MagnetometerCalibration {
 
-    private static final int calibrationSamples = 25_000;
-    private static final int timeOffset = 20;
+    private static final int calibrationSamples = 5_000;
+    private static final int timeOffset = 50;
     private static final String magnetoData = "data_for_magneto_calibration.txt";
 
     public static void start(LSM303D magneto)  {
@@ -19,6 +19,7 @@ public class MagnetometerCalibration {
             System.out.println("Start Calibration");
             for (int i = 0; i < calibrationSamples; i++) {
                 ThreeAxes axes = magneto.getMag();
+                System.out.println(axes.x + " " + axes.y + " " + axes.z);
                 printWriter.println(axes.x + " " + axes.y + " " + axes.z);
                 Thread.sleep(timeOffset);
             }
