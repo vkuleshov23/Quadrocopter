@@ -89,7 +89,7 @@ public class SensorDataCollector {
 
     @SneakyThrows
     void setZToZero() {
-        int count = (int) (5000 / ahrs.getSamplePeriodInMs());
+        int count = (int) (2000 / ahrs.getSamplePeriodInMs());
         System.out.println(count);
         for(int i = 0; i < count; i++) {
             ahrsUpdate();
