@@ -230,17 +230,6 @@ public class MadgwickAHRS {
 
     public synchronized ThreeAxes getEulerAngles() {
         ThreeAxes axes = new ThreeAxes();
-//        double sinr_cosp = 2 * (quaternion[0] * quaternion[1] + quaternion[2] * quaternion[3]);
-//        double cosr_cosp = 1 - 2 * (quaternion[1] * quaternion[1] + quaternion[2] * quaternion[2]);
-//        axes.x = (float) Math.atan2(sinr_cosp, cosr_cosp);
-//
-//        double sinp = Math.sqrt(1 + 2 * (quaternion[0] * quaternion[2] - quaternion[1] * quaternion[3]));
-//        double cosp = Math.sqrt(1 - 2 * (quaternion[0] * quaternion[2] - quaternion[1] * quaternion[3]));
-//        axes.y = (float) (Math.atan2(sinp, cosp) - (Math.PI /2));
-//
-//        double siny_cosp = 2 * (quaternion[0] * quaternion[3] + quaternion[1] * quaternion[2]);
-//        double cosy_cosp = 1 - 2 * (quaternion[2] * quaternion[2] + quaternion[3] * quaternion[3]);
-//        axes.z = (float) Math.atan2(siny_cosp, cosy_cosp);
 
         double q2sqr = quaternion[2] * quaternion[2];
         double t0 = -2.0 * (q2sqr + quaternion[3] * quaternion[3]) + 1.0;

@@ -9,6 +9,7 @@ import pi.quadrocopter.model.i2c.L3GD20;
 import pi.quadrocopter.model.i2c.LSM303D;
 import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.MadgwickAHRS;
+import pi.quadrocopter.util.MagnetometerCalibration;
 import pi.quadrocopter.util.ThreeAxes;
 
 import javax.annotation.PostConstruct;
@@ -32,10 +33,13 @@ public class SensorDataCollector {
         gyro.init();
         accMag.init();
         tempPress.init();
+        MagnetometerCalibration.start(accMag);
     }
 
+
+
     @SneakyThrows
-    @Scheduled(cron = "*/1 * * * * *")
+//    @Scheduled(cron = "*/1 * * * * *")
     void mainLoop() {
         tempPress.update();
 //        System.out.println(tempPress);
@@ -52,7 +56,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+//    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
     void ahrs() {
         gyro.update();
         accMag.update();
@@ -80,7 +84,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
+//    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
     void radio() {
         if(nrf.available()) {
             System.out.println(nrf.read());

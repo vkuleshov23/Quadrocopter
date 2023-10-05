@@ -2,7 +2,6 @@ package pi.quadrocopter.util;
 
 import lombok.*;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ThreeAxes {
