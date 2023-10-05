@@ -18,7 +18,7 @@ public class MagnetometerCalibration {
         try (PrintWriter printWriter = new PrintWriter(magnetoData, StandardCharsets.UTF_8)) {
             System.out.println("Start Calibration");
             for (int i = 0; i < calibrationSamples; i++) {
-                ThreeAxes axes = new ThreeAxes(magneto.getMag());
+                ThreeAxes axes = magneto.getMag();
                 printWriter.println(axes.x + " " + axes.y + " " + axes.z);
                 Thread.sleep(timeOffset);
             }
