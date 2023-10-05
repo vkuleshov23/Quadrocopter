@@ -87,9 +87,11 @@ public class SensorDataCollector {
         }
     }
 
+    @SneakyThrows
     void setZToZero() {
         for(int i = 0; i < 10; i++) {
             ahrsUpdate();
+            Thread.sleep(ahrs.getSamplePeriodInMs());
         }
         ThreeAxes axes = ahrs.getEulerAngles();
         System.out.println("Z Offset: " + axes.z);
