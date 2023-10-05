@@ -70,7 +70,6 @@ public class SensorDataCollector {
                 accAxes.x, accAxes.y, accAxes.z,
                 magAxes.x, magAxes.y, magAxes.z
         );
-        System.out.print(".");
 
 //        synchronized (averageData) {
 //            ArrayList<Float> a = new ArrayList<>(3);
@@ -90,9 +89,11 @@ public class SensorDataCollector {
 
     @SneakyThrows
     void setZToZero() {
-        for(int i = 0; i < (int) (2000 / ahrs.getSamplePeriod()); i++) {
+        int count = (int) (5000 / ahrs.getSamplePeriod());
+        for(int i = 0; i < count; i++) {
             ahrsUpdate();
             Thread.sleep(ahrs.getSamplePeriodInMs());
+            System.out.print(".");
         }
         ThreeAxes axes = ahrs.getEulerAngles();
         System.out.println("Z Offset: " + axes.z);
