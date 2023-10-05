@@ -39,24 +39,24 @@ public class SensorDataCollector {
 
 
     @SneakyThrows
-    @Scheduled(cron = "*/1 */1 * * * *")
+    @Scheduled(cron = "*/1 * * * * *")
     void mainLoop() {
         tempPress.update();
 //        System.out.println(tempPress);
         ThreeAxes q = ahrs.getEulerAngles();
         System.out.println("AHRS: X: " + Math.toDegrees(q.x) + " Y: " + Math.toDegrees(q.y) + " Z: " + Math.toDegrees(q.z));
 
-//        synchronized (averageData) {
-//            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
-//            double resy = (averageData.stream().mapToDouble(ax -> ax.y).sum()) / averageData.size();
-//            double resz = (averageData.stream().mapToDouble(ax -> ax.z).sum()) / averageData.size();
-//            System.out.println("X " + resx + " Y " + resy + " Z " + resz);
-//            averageData.clear();
-//        }
+        synchronized (averageData) {
+            double resx = (averageData.stream().mapToDouble(ax -> ax.x).sum()) / averageData.size();
+            double resy = (averageData.stream().mapToDouble(ax -> ax.y).sum()) / averageData.size();
+            double resz = (averageData.stream().mapToDouble(ax -> ax.z).sum()) / averageData.size();
+            System.out.println("X " + resx + " Y " + resy + " Z " + resz);
+            averageData.clear();
+        }
     }
 
     @SneakyThrows
-//    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
     void ahrs() {
         gyro.update();
         accMag.update();
@@ -77,10 +77,10 @@ public class SensorDataCollector {
 //                accAxes.x, accAxes.y, accAxes.z
 //        );
 
-//        synchronized (averageData) {
-//            ArrayList<Float> a = new ArrayList<>(3);
-//            averageData.add(new ThreeAxes(magAxes));
-//        }
+        synchronized (averageData) {
+            ArrayList<Float> a = new ArrayList<>(3);
+            averageData.add(new ThreeAxes(magAxes));
+        }
     }
 
     @SneakyThrows
