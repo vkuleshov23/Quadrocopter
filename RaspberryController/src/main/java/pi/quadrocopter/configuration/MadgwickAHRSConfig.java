@@ -17,8 +17,6 @@ public class MadgwickAHRSConfig {
     @Scope("singleton")
     public MadgwickAHRS madgwickAHRS() {
         MadgwickAHRS ahrs = new MadgwickAHRS(AHRS_FREQUENCY_Hz, AHRS_BETA);
-        ahrs.setTwoKi(1.0f);
-        ahrs.setTwoKp(0.5f);
         return ahrs;
     }
 }
