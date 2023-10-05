@@ -237,7 +237,7 @@ public class MadgwickAHRS {
 
         axes.x = (float) Math.atan2(t3, t4);
         axes.y = (float) Math.asin(t2);
-        axes.z = (float) Math.atan2(t1, t0);
+        axes.z = (float) Math.atan2(t1, t0) - zOffset;
         return axes;
     }
 
