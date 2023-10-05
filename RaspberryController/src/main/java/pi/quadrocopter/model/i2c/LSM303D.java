@@ -143,7 +143,6 @@ public class LSM303D extends QI2CDevice {
             accel.setX(xha, xla);
             accel.setY(yha, yla);
             accel.setZ(zha, zla);
-            // 1g == 1 ; 2g == 2; <2g == 2; -1g == 1; ...
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -160,9 +159,9 @@ public class LSM303D extends QI2CDevice {
             mag.setX(xhm, xlm);
             mag.setY(yhm, ylm);
             mag.setZ(zhm, zlm);
-//            mag.x -= MagnetometerCalibration.x_offset;
-//            mag.y -= MagnetometerCalibration.y_offset;
-//            mag.z -= MagnetometerCalibration.z_offset;
+            mag.x -= MagnetometerCalibration.x_offset;
+            mag.y -= MagnetometerCalibration.y_offset;
+            mag.z -= MagnetometerCalibration.z_offset;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
