@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 @UtilityClass
 public class MagnetometerCalibration {
 
-    private static final int calibrationSamples = 5_000;
+    private static final int calibrationSamples = 200;
     private static final int timeOffset = 50;
     private static final String magnetoData = "data_for_magneto_calibration.txt";
 

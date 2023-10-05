@@ -33,13 +33,13 @@ public class SensorDataCollector {
         gyro.init();
         accMag.init();
         tempPress.init();
-        MagnetometerCalibration.start(accMag);
+//        MagnetometerCalibration.start(accMag);
     }
 
 
 
     @SneakyThrows
-//    @Scheduled(cron = "*/1 * * * * *")
+    @Scheduled(cron = "*/1 */1 * * * *")
     void mainLoop() {
         tempPress.update();
 //        System.out.println(tempPress);
