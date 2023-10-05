@@ -33,6 +33,7 @@ public class SensorDataCollector {
         gyro.init();
         accMag.init();
         tempPress.init();
+        setZToZero();
 //        MagnetometerCalibration.start(accMag);
     }
 
@@ -84,5 +85,12 @@ public class SensorDataCollector {
         } else {
             nrf.startListening();
         }
+    }
+
+    void setZToZero() {
+        for(int i = 0; i < 10; i++) {
+            ahrs();
+        }
+        ahrs.setZOffset(ahrs.getEulerAngles().z);
     }
 }

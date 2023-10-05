@@ -16,13 +16,7 @@ public class MadgwickAHRS {
 
     @Getter
     @Setter
-    private float twoKp;			// 2 * proportional gain (Kp)
-
-    @Getter
-    @Setter
-    private float twoKi;			// 2 * integral gain (Ki)
-
-    private float integralFBx = 0.0f,  integralFBy = 0.0f, integralFBz = 0.0f;	// integral error terms scaled by Ki
+    private float zOffset;
 
     private final float[] quaternion;
 
