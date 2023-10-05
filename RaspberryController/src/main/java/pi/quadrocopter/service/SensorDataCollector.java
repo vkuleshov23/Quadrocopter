@@ -89,6 +89,7 @@ public class SensorDataCollector {
 
     @SneakyThrows
     void setZToZero() {
+        Thread.sleep(5000);
         for(int i = 0; i < 10; i++) {
             ahrsUpdate();
             Thread.sleep(ahrs.getSamplePeriodInMs());
