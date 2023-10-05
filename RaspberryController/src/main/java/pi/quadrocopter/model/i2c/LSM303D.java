@@ -3,6 +3,7 @@ package pi.quadrocopter.model.i2c;
 import com.pi4j.io.i2c.I2CBus;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
+import pi.quadrocopter.util.MagnetometerCalibration;
 import pi.quadrocopter.util.ThreeAxes;
 
 import java.io.IOException;
@@ -159,6 +160,9 @@ public class LSM303D extends QI2CDevice {
             mag.setX(xhm, xlm);
             mag.setY(yhm, ylm);
             mag.setZ(zhm, zlm);
+            mag.x -= MagnetometerCalibration.x_offset;
+            mag.y -= MagnetometerCalibration.y_offset;
+            mag.z -= MagnetometerCalibration.z_offset;
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

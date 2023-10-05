@@ -1,6 +1,7 @@
 package pi.quadrocopter.util;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -70,5 +71,29 @@ public class ThreeAxes {
     @Override
     public String toString() {
         return "X: " + x + " Y: " + y + " Z: " + z;
+    }
+
+    public int getXHigh() {
+        return (int)this.x >> 8;
+    }
+
+    public int getXLow() {
+        return (int)this.x & 255;
+    }
+
+    public float getYInt() {
+        return (int)this.y >> 8;
+    }
+
+    public int getYLow() {
+        return (int)this.y & 255;
+    }
+
+    public float getZInt() {
+        return (int)this.z >> 8;
+    }
+
+    public int getZLow() {
+        return (int)this.y & 255;
     }
 }

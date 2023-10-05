@@ -33,11 +33,11 @@ public class SensorDataCollector {
         gyro.init();
         accMag.init();
         tempPress.init();
-        MagnetometerCalibration.start(accMag);
+//        MagnetometerCalibration.start(accMag);
     }
 
     @SneakyThrows
-//    @Scheduled(cron = "*/1 * * * * *")
+    @Scheduled(cron = "*/1 * * * * *")
     void mainLoop() {
         tempPress.update();
 //        System.out.println(tempPress);
@@ -54,7 +54,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-//    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
+    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
     void ahrs() {
         gyro.update();
         accMag.update();
@@ -69,11 +69,6 @@ public class SensorDataCollector {
                 accAxes.x, accAxes.y, accAxes.z,
                 magAxes.x, magAxes.y, magAxes.z
         );
-//        ahrs.update((float) Math.toRadians(gyroAxes.x),
-//                (float) Math.toRadians(gyroAxes.y),
-//                (float) Math.toRadians(gyroAxes.z),
-//                accAxes.x, accAxes.y, accAxes.z
-//        );
 
 //        synchronized (averageData) {
 //            ArrayList<Float> a = new ArrayList<>(3);
@@ -82,7 +77,7 @@ public class SensorDataCollector {
     }
 
     @SneakyThrows
-//    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
+    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
     void radio() {
         if(nrf.available()) {
             System.out.println(nrf.read());
