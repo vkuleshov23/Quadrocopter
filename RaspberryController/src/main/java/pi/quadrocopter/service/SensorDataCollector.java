@@ -56,7 +56,7 @@ public class SensorDataCollector {
 
     @SneakyThrows
     @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
-    void ahrs() {
+    void ahrsUpdate() {
         gyro.update();
         accMag.update();
         ThreeAxes gyroAxes = gyro.getAxes();
@@ -89,8 +89,10 @@ public class SensorDataCollector {
 
     void setZToZero() {
         for(int i = 0; i < 10; i++) {
-            ahrs();
+            ahrsUpdate();
         }
-        ahrs.setZOffset(ahrs.getEulerAngles().z);
+        ThreeAxes axes = ahrs.getEulerAngles();
+        System.out.println("Z Offset: " + axes.z);
+        ahrs.setZOffset(axes.z);
     }
 }
