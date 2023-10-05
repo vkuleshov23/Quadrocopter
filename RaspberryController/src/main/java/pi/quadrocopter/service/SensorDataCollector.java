@@ -70,6 +70,7 @@ public class SensorDataCollector {
                 accAxes.x, accAxes.y, accAxes.z,
                 magAxes.x, magAxes.y, magAxes.z
         );
+        System.out.print(".");
 
 //        synchronized (averageData) {
 //            ArrayList<Float> a = new ArrayList<>(3);
