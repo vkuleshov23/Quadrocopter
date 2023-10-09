@@ -9,8 +9,8 @@ import pi.quadrocopter.model.i2c.L3GD20;
 import pi.quadrocopter.model.i2c.LSM303D;
 import pi.quadrocopter.model.spi.NRF24;
 import pi.quadrocopter.util.MadgwickAHRS;
-import pi.quadrocopter.util.MagnetometerCalibration;
-import pi.quadrocopter.util.ThreeAxes;
+import pi.quadrocopter.util.ThreeAngles;
+import pi.quadrocopter.util.Vector3_16bit;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class SensorDataCollector {
     private final BMP180 tempPress;
     private final NRF24 nrf;
 
-    private final ArrayList<ThreeAxes> averageData = new ArrayList<>(80);
+    private final ArrayList<Vector3_16bit> averageData = new ArrayList<>(80);
 
     @SneakyThrows
     @PostConstruct
@@ -42,7 +42,8 @@ public class SensorDataCollector {
     void mainLoop() {
         tempPress.update();
 //        System.out.println(tempPress);
-        ThreeAxes q = ahrs.getEulerAnglesInDegrees();
+        ThreeAngles q = ahrs.getEulerAngles();
+        q.toDegrees();
         System.out.println("AHRS: " + q);
 
 //        synchronized (averageData) {
@@ -59,9 +60,9 @@ public class SensorDataCollector {
     void ahrsUpdate() {
         gyro.update();
         accMag.update();
-        ThreeAxes gyroAxes = gyro.getAxes();
-        ThreeAxes accAxes = accMag.getAccel();
-        ThreeAxes magAxes = accMag.getMag();
+        Vector3_16bit gyroAxes = gyro.getAxes();
+        Vector3_16bit accAxes = accMag.getAccel();
+        Vector3_16bit magAxes = accMag.getMag();
 
         ahrs.update(
                 (float) Math.toRadians(gyroAxes.x),
@@ -96,8 +97,8 @@ public class SensorDataCollector {
             Thread.sleep(ahrs.getSamplePeriodInMs());
             System.out.print(".");
         }
-        ThreeAxes axes = ahrs.getEulerAngles();
-        System.out.println("Z Offset: " + axes.z);
-        ahrs.setZOffset((float) Math.toDegrees(axes.z));
+        ThreeAngles axes = ahrs.getEulerAngles();
+        System.out.println("Yaw offset: " + axes.getYaw());
+        ahrs.setZOffset((float) Math.toDegrees(axes.getYaw()));
     }
 }

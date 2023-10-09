@@ -2,7 +2,6 @@ package pi.quadrocopter.util;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.Synchronized;
 
 public class MadgwickAHRS {
 
@@ -18,10 +17,10 @@ public class MadgwickAHRS {
     @Setter
     private float zOffset;
 
-    private final float[] quaternion;
+    private final Quaternion quaternion;
 
-    public synchronized float[] getQuaternion() {
-        return new float[] {quaternion[0], quaternion[1], quaternion[2], quaternion[3]};
+    public synchronized Quaternion getQuaternion() {
+        return new Quaternion(quaternion.getW(), quaternion.getX(), quaternion.getY(), quaternion.getZ());
     }
 
     public long getSamplePeriodInMs() {
@@ -35,13 +34,13 @@ public class MadgwickAHRS {
     public MadgwickAHRS(float samplePeriod, float beta) {
         this.samplePeriod = samplePeriod;
         this.beta = beta;
-        this.quaternion = new float[] { 1f, 0f, 0f, 0f };
+        this.quaternion = new Quaternion();
     }
 
     public synchronized void update(float gx, float gy, float gz, float ax, float ay,
                        float az, float mx, float my, float mz) {
 
-        float q0 = quaternion[0], q1 = quaternion[1], q2 = quaternion[2], q3 = quaternion[3]; // short
+        float q0 = quaternion.getW(), q1 = quaternion.getX(), q2 = quaternion.getY(), q3 = quaternion.getZ(); // short
 
         float recipNorm;
         float s0, s1, s2, s3;
@@ -132,15 +131,15 @@ public class MadgwickAHRS {
 
         // Normalise quaternion
         recipNorm = invSqrt(q0 * q0 + q1 * q1 + q2 * q2 + q3 * q3);
-        quaternion[0] = q0 * recipNorm;
-        quaternion[1] = q1 * recipNorm;
-        quaternion[2] = q2 * recipNorm;
-        quaternion[3] = q3 * recipNorm;
+        quaternion.setW(q0 * recipNorm);
+        quaternion.setX(q1 * recipNorm);
+        quaternion.setY(q2 * recipNorm);
+        quaternion.setZ(q3 * recipNorm);
     }
 
     public synchronized void update(float gx, float gy, float gz, float ax, float ay,
                        float az) {
-        float q0 = quaternion[0], q1 = quaternion[1], q2 = quaternion[2], q3 = quaternion[3]; // short
+        float q0 = quaternion.getW(), q1 = quaternion.getX(), q2 = quaternion.getY(), q3 = quaternion.getZ(); // short
 
         float recipNorm;
         float s0, s1, s2, s3;
@@ -207,10 +206,10 @@ public class MadgwickAHRS {
         q1 *= recipNorm;
         q2 *= recipNorm;
         q3 *= recipNorm;
-        quaternion[0] = q0 * recipNorm;
-        quaternion[1] = q1 * recipNorm;
-        quaternion[2] = q2 * recipNorm;
-        quaternion[3] = q3 * recipNorm;
+        quaternion.setW(q0 * recipNorm);
+        quaternion.setX(q1 * recipNorm);
+        quaternion.setY(q2 * recipNorm);
+        quaternion.setZ(q3 * recipNorm);
     }
 
     private float invSqrt(float x) {
@@ -222,31 +221,8 @@ public class MadgwickAHRS {
         return x;
     }
 
-    public synchronized ThreeAxes getEulerAngles() {
-        ThreeAxes axes = new ThreeAxes();
-
-        double q2sqr = quaternion[2] * quaternion[2];
-        double t0 = -2.0 * (q2sqr + quaternion[3] * quaternion[3]) + 1.0;
-        double t1 = +2.0 * (quaternion[1] * quaternion[2] + quaternion[0] * quaternion[3]);
-        double t2 = -2.0 * (quaternion[1] * quaternion[3] - quaternion[0] * quaternion[2]);
-        double t3 = +2.0 * (quaternion[2] * quaternion[3] + quaternion[0] * quaternion[1]);
-        double t4 = -2.0 * (quaternion[1] * quaternion[1] + q2sqr) + 1.0;
-
-        t2 = Math.min(t2, 1.0);
-        t2 = Math.max(t2, -1.0);
-
-        axes.x = (float) Math.atan2(t3, t4);
-        axes.y = (float) Math.asin(t2);
-        axes.z = (float) Math.atan2(t1, t0);
-        return axes;
-    }
-
-    public synchronized ThreeAxes getEulerAnglesInDegrees() {
-        ThreeAxes axes = this.getEulerAngles();
-        axes.x = (float) Math.toDegrees(axes.x);
-        axes.y = (float) Math.toDegrees(axes.y);
-        axes.z = (float) Math.toDegrees(axes.z) - zOffset;
-        return axes;
+    public synchronized ThreeAngles getEulerAngles() {
+        return quaternion.toEulerAngles();
     }
 
 }

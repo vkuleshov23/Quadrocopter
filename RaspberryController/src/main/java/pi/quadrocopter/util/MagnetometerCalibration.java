@@ -24,7 +24,7 @@ public class MagnetometerCalibration {
             System.out.println("Start Calibration");
             for (int i = 0; i < calibrationSamples; i++) {
                 magneto.update();
-                ThreeAxes axes = magneto.getMag();
+                Vector3_16bit axes = magneto.getMag();
                 System.out.println(axes.x + " " + axes.y + " " + axes.z);
                 printWriter.println(axes.x + " " + axes.y + " " + axes.z);
                 Thread.sleep(timeOffset);
