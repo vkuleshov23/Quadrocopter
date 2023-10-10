@@ -1,7 +1,9 @@
-package pi.quadrocopter.util;
+package pi.quadrocopter.model.ahrs;
 
 import lombok.Getter;
 import lombok.Setter;
+import pi.quadrocopter.util.Quaternion;
+import pi.quadrocopter.util.ThreeAngles;
 
 public class MadgwickAHRS {
 
@@ -223,6 +225,11 @@ public class MadgwickAHRS {
 
     public synchronized ThreeAngles getEulerAngles() {
         return quaternion.toEulerAngles();
+    }
+    public synchronized ThreeAngles getEulerAnglesInDegrees() {
+        ThreeAngles angles = quaternion.toEulerAngles();
+        angles.toDegrees();
+        return angles;
     }
 
 }

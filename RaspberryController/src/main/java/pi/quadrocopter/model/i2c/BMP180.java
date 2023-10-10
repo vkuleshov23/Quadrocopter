@@ -26,20 +26,20 @@ public class BMP180 extends QI2CDevice {
     private final byte[] data = new byte[22];
 
     @Getter
-    private double T;
+    private double temperature;
     @Getter
-    private double P;
+    private double pressure;
 
     private double startP;
     @Getter
-    private double A;
+    private double altitude;
 
     public BMP180(I2CBus bus) throws IOException {
         super(bus, BMP180_ADDRESS);
     }
 
     @Override
-    public void init() {
+    public synchronized void init() {
         try {
             device.read(0xAA, data, 0, 22);
             AC1 = ByteBuffer.wrap(new byte[]{data[0], data[1]}).getShort();
@@ -55,14 +55,14 @@ public class BMP180 extends QI2CDevice {
             MD = ByteBuffer.wrap(new byte[]{data[20], data[21]}).getShort();
             Thread.sleep(50);
             this.update();
-            this.startP = this.P;
+            this.startP = this.pressure;
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         try {
             readTemperature();
             readPressure();
@@ -80,7 +80,7 @@ public class BMP180 extends QI2CDevice {
         X1 = (long) ((long) (t - AC6) * AC5 / 32768.0);
         X2 = (MC * 2048.0) / (X1 + MD);
         B5 = X1 + X2;
-        this.T = ((B5 + 8.0) / 16.0) / 10.0; //Celsius
+        this.temperature = ((B5 + 8.0) / 16.0) / 10.0; //Celsius
     }
 
     private void readPressure() throws IOException, InterruptedException {
@@ -98,24 +98,24 @@ public class BMP180 extends QI2CDevice {
         X3 = (long) (((X1 + X2) + 2) / 4.0);
         B4 = AC4 * (X3 + 32768) / 32768.0;
         B7 = ((p - B3) * (50000 >> OVER_SAMPLING_RATE));
-        this.P = B7 < 2147483648L ? ((B7 * 2) / B4) : ((B7 / B4) * 2);
-        X1 = (long) ((this.P / 256.0) * (this.P / 256.0));
+        this.pressure = B7 < 2147483648L ? ((B7 * 2) / B4) : ((B7 / B4) * 2);
+        X1 = (long) ((this.pressure / 256.0) * (this.pressure / 256.0));
         X1 = (long) ((X1 * 3038.0) / 65536.0);
-        X2 = ((-7357) * this.P) / 65536.0;
-        this.P = (this.P + (X1 + X2 + 3791) / 16.0) / 100; //hPa
+        X2 = ((-7357) * this.pressure) / 65536.0;
+        this.pressure = (this.pressure + (X1 + X2 + 3791) / 16.0) / 100; //hPa
     }
 
     private void readSeaAltitude() {
         double seaPressure = 1013.25;
-        this.A = 44330 * (1 - pow((this.P / seaPressure), 0.1903));
+        this.altitude = 44330 * (1 - pow((this.pressure / seaPressure), 0.1903));
     }
 
     private void readAltitude() {
-        this.A = 44330 * (1 - pow((this.P / this.startP), 0.1903));
+        this.altitude = 44330 * (1 - pow((this.pressure / this.startP), 0.1903));
     }
 
     @Override
     public String toString() {
-        return "BMP180 | Temperature: " + this.T + " Pressure: " + this.P + " Altitude: " + this.A;
+        return "BMP180 | Temperature: " + this.temperature + " Pressure: " + this.pressure + " Altitude: " + this.altitude;
     }
 }

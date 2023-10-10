@@ -114,7 +114,7 @@ public class LSM303D extends QI2CDevice {
     }
 
     @Override
-    public void init() {
+    public synchronized void init() {
         try {
             device.write(LSM303D_CTRL2, (byte) AFS_2G);
             device.write(LSM303D_CTRL1, (byte) AODR_50Hz__ALL_AXES_ENABLE);
@@ -127,7 +127,7 @@ public class LSM303D extends QI2CDevice {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         readAcc();
         readMag();
     }

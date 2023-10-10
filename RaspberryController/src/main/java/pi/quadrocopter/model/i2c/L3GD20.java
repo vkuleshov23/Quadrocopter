@@ -63,7 +63,7 @@ public class L3GD20 extends QI2CDevice {
     }
 
     @Override
-    public void init() {
+    public synchronized void init() {
         try {
             device.write(L3GD20_CTRL_REG1, (byte) NORMAL_POWER_MODE);
             device.write(L3GD20_CTRL_REG4, (byte) L3GD20_INT1_CFG);
@@ -73,7 +73,7 @@ public class L3GD20 extends QI2CDevice {
     }
 
     @Override
-    public void update() {
+    public synchronized void update() {
         try {
             int xl = device.read(L3GD20_OUT_X_L);
             int xh = device.read(L3GD20_OUT_X_H);

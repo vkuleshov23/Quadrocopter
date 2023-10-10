@@ -3,9 +3,7 @@ package pi.quadrocopter.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import pi.quadrocopter.util.MadgwickAHRS;
-
-import java.time.Duration;
+import pi.quadrocopter.model.ahrs.MadgwickAHRS;
 
 @Configuration
 public class MadgwickAHRSConfig {
