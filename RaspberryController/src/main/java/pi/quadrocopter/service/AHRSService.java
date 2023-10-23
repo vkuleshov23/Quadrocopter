@@ -2,7 +2,6 @@ package pi.quadrocopter.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pi.quadrocopter.model.ahrs.MadgwickAHRS;
 import pi.quadrocopter.util.ThreeAngles;
@@ -16,10 +15,13 @@ public class AHRSService {
     private final MadgwickAHRS ahrs;
     private final SensorsService sensorsService;
 
-    @SneakyThrows
     @PostConstruct
     public void initAHRS() {
-        this.setZToZero();
+        try {
+            this.setZToZero();
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public ThreeAngles getAngles() {
@@ -52,8 +54,7 @@ public class AHRSService {
                 magAxes.x, magAxes.y, magAxes.z);
     }
 
-    @SneakyThrows
-    public void setZToZero() {
+    public void setZToZero() throws InterruptedException {
         int start_time_ms = 1000;
         int count = (int) (start_time_ms / ahrs.getSamplePeriodInMs());
         System.out.println(count);

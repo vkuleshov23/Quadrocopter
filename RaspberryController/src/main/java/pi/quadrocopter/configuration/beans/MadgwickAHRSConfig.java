@@ -1,4 +1,4 @@
-package pi.quadrocopter.configuration;
+package pi.quadrocopter.configuration.beans;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ public class MadgwickAHRSConfig {
     @Bean
     @Scope("singleton")
     public MadgwickAHRS madgwickAHRS() {
-        MadgwickAHRS ahrs = new MadgwickAHRS(AHRS_FREQUENCY_Hz, AHRS_BETA);
-        return ahrs;
+        return new MadgwickAHRS(AHRS_FREQUENCY_Hz, AHRS_BETA);
     }
 }

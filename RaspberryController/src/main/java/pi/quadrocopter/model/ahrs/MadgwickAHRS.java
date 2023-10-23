@@ -2,6 +2,7 @@ package pi.quadrocopter.model.ahrs;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 import pi.quadrocopter.util.Quaternion;
 import pi.quadrocopter.util.ThreeAngles;
 
