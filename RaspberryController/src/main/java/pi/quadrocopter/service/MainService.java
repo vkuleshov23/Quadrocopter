@@ -28,7 +28,7 @@ public class MainService {
     }
 
     @SneakyThrows
-    @Scheduled(fixedDelayString = "#{@aHRSService.getSampleInMs()}")
+    @Scheduled(fixedDelayString = "#{@AHRSService.getSampleInMs()}")
     public void ahrsUpdate() {
         ahrsService.update();
     }
