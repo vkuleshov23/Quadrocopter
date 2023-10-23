@@ -13,6 +13,13 @@ public class MainService {
     private final RadioService radioService;
 //    private final MotionControlService;
 
+    @SneakyThrows
+    @Scheduled(fixedDelay = 1000)
+    public void mainF() {
+        System.out.println("altitude: " + ahrsService.getAltitude());
+        System.out.println("position: " + ahrsService.getAngles());
+        System.out.println("temperature: " + ahrsService.getTemperature() + "C");
+    }
 
     @SneakyThrows
     @Scheduled(fixedDelayString = "#{@radioService.getSampleInMs()}")

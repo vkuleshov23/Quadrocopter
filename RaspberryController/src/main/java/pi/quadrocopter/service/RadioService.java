@@ -17,9 +17,7 @@ public class RadioService {
 
     private final ConcurrentLinkedQueue<String> messages = new ConcurrentLinkedQueue<>();
 
-
     @SneakyThrows
-    @Scheduled(fixedDelayString = "#{@nrf.getSampleMS()}")
     public void update() {
         if(nrf.available()) {
             String message = nrf.read();

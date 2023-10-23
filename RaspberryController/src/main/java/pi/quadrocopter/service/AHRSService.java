@@ -39,7 +39,6 @@ public class AHRSService {
     }
 
     @SneakyThrows
-    @Scheduled(fixedRateString = "#{@madgwickAHRS.getSamplePeriodInMs()}")
     public void update() {
         sensorsService.update();
         Vector3_16bit gyroAxes = sensorsService.getGyro();
@@ -55,7 +54,8 @@ public class AHRSService {
 
     @SneakyThrows
     public void setZToZero() {
-        int count = (int) (5000 / ahrs.getSamplePeriodInMs());
+        int start_time_ms = 5000;
+        int count = (int) (start_time_ms / ahrs.getSamplePeriodInMs());
         System.out.println(count);
         for(int i = 0; i < count; i++) {
             update();
