@@ -64,8 +64,9 @@ public class AHRSService {
             System.out.print(".");
         }
         ThreeAngles axes = ahrs.getEulerAngles();
-        System.out.println("Yaw offset: " + axes.getYaw());
         ahrs.setZOffset((float) Math.toDegrees(axes.getYaw()));
+        axes.toDegrees();
+        System.out.println("Yaw offset: " + axes.getYaw());
     }
 
     public long getSampleInMs() {
