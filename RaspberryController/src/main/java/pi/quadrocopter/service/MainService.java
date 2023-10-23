@@ -28,8 +28,8 @@ public class MainService {
     }
 
     @SneakyThrows
-//    @Scheduled(fixedDelayString = "#{@AHRSService.getSampleInMs()}")
-    @Scheduled(fixedDelayString = "20")
+    @Scheduled(fixedDelayString = "#{@AHRSService.getSampleInMs()}")
+//    @Scheduled(fixedDelayString = "20")
     public void ahrsUpdate() {
         ahrsService.update();
     }

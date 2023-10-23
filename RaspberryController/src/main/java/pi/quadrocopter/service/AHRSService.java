@@ -17,11 +17,11 @@ public class AHRSService {
 
     @PostConstruct
     public void initAHRS() {
-        try {
-            this.setZToZero();
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            this.setZToZero();
+//        } catch (InterruptedException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public ThreeAngles getAngles() {
