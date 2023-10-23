@@ -230,6 +230,7 @@ public class MadgwickAHRS {
     public synchronized ThreeAngles getEulerAnglesInDegrees() {
         ThreeAngles angles = quaternion.toEulerAngles();
         angles.toDegrees();
+        angles.setYaw(angles.getYaw()-zOffset);
         return angles;
     }
 

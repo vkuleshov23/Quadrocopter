@@ -55,7 +55,7 @@ public class AHRSService {
     }
 
     public void setZToZero() throws InterruptedException {
-        int start_time_ms = 1000;
+        int start_time_ms = 5000;
         int count = (int) (start_time_ms / ahrs.getSamplePeriodInMs());
         System.out.println(count);
         for(int i = 0; i < count; i++) {
